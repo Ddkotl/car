@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  slug  String  @unique
+  title String  @unique
+  posts Posts[] @relation("PostsTags")
+
+  @@map("tags")
+}
+
+model Posts {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  original_title   String
+  type             PostTypes
+  meta_title       String
+  meta_description String
+
+  slug          String   @unique
+  title         String   @unique
+  content       String
+  preview_image String?
+  images        String[]
+  views         Int      @default(0)
+
+  car_model_id String?
+  car_model    CarsModels? @relation(fields: [car_model_id], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  tags Tag[] @relation("PostsTags")
+
+  @@map("reviews")
+}
+
+model CarMarks {
+  id         String       @id @default(cuid())
+  name       String       @unique
+  slug       String       @unique
+  car_models CarsModels[]
+  createdAt  DateTime     @default(now())
+
+  @@map("car_marks")
+}
+
+model CarsModels {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  short_name     String          @unique
+  full_name      String          @unique
+  slug           String          @unique
+  cars_mark_id   String
+  specifications Specification[]
+  main_image     String
+  Posts          Posts[]
+  CarMarks       CarMarks?       @relation(fields: [carMarksId], references: [id])
+  carMarksId     String?
+
+  @@map("cars_models")
+}
+
+model Specification {
+  id String @id @default(cuid())
+
+  images          String[]
+
+
+  description String
+
+  car_model    CarsModels @relation(fields: [car_model_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  car_model_id String
+
+  @@map("specification")
+}
+
+enum PostTypes {
+  NEWS
+  REVIEWS
+}
