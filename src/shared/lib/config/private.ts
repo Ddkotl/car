@@ -9,18 +9,6 @@ const privateConfigSchema = z.object({
   S3_ENDPOINT: z.string(),
   S3_REGION: z.string(),
 
-  GITHUB_ID: z.string().optional(),
-  GITHUB_SECRET: z.string().optional(),
-
-  GOOGLE_CLIENT_ID: z.string().optional(),
-  GOOGLE_CLIENT_SECRET: z.string().optional(),
-
-  YANDEX_CLIENT_ID: z.string().optional(),
-  YANDEX_CLIENT_SECRET: z.string().optional(),
-
-  MAILRU_CLIENT_ID: z.string().optional(),
-  MAILRU_CLIENT_SECRET: z.string().optional(),
-
   ADMIN_EMAILS: z.string().optional(),
 
   GOOGLE_ANALITICS_4_ID: z.string().optional(),
@@ -35,7 +23,9 @@ const privateConfigSchema = z.object({
 
   NODE_ENV: z.string().optional(),
 
-  PAYLOAD_SECRET: z.string().optional(),
+  SAIT_URL: z.string().optional(),
+  SAIT_NAME: z.string().optional(),
+  BACKUP_DIR: z.string().optional(),
 });
 
 export const privateConfig = privateConfigSchema.parse(

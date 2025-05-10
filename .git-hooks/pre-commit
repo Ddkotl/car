@@ -1,4 +1,5 @@
 #!/bin/sh
 bun run prettier
 bun run lint
+bun run lint:types
 git add .

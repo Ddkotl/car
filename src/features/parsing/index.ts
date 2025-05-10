@@ -1,7 +1,6 @@
 import { Browser, chromium } from "playwright";
 import { addHTTPheaders } from "./functions/addHttpHeader";
-import { parseAllNovels } from "./modules/parse_all_novells";
-import { parseAllGenres } from "./modules/parse_all_genres";
+import { getAllCarsModels } from "./modules/get_all_cars_models";
 
 export async function startParse() {
   console.log("start parsing");
@@ -12,8 +11,7 @@ export async function startParse() {
       browser,
       true,
     );
-    await parseAllGenres(page);
-    await parseAllNovels(page, pageToImages);
+    await getAllCarsModels(page, pageToImages);
   } catch (error) {
     console.error("Parsing Error", error);
   } finally {

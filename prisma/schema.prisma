@@ -51,14 +51,14 @@ model Posts {
   @@map("reviews")
 }
 
-model CarMarks {
+model CarBrands {
   id         String       @id @default(cuid())
   name       String       @unique
   slug       String       @unique
   car_models CarsModels[]
   createdAt  DateTime     @default(now())
 
-  @@map("car_marks")
+  @@map("car_brands")
 }
 
 model CarsModels {
@@ -72,8 +72,8 @@ model CarsModels {
   specifications Specification[]
   main_image     String
   Posts          Posts[]
-  CarMarks       CarMarks?       @relation(fields: [carMarksId], references: [id])
-  carMarksId     String?
+  car_brand      CarBrands?      @relation(fields: [car_brand_id], references: [id])
+  car_brand_id   String?
 
   @@map("cars_models")
 }
@@ -81,8 +81,7 @@ model CarsModels {
 model Specification {
   id String @id @default(cuid())
 
-  images          String[]
-
+  images String[]
 
   description String
 

@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <Link href="/tags_and_genres">
-      <Button>tags</Button>
+    <Link href="/brands">
+      <Button>brands</Button>
     </Link>
   );
 }
