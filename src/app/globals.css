@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-contrast_color: var(--contrast_color);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -48,6 +49,7 @@
 }
 
 :root {
+  --contrast_color: oklch(0.5 0.2664 266.29);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -122,5 +124,24 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .image-safe {
+    @apply relative inline-block;
+  }
+
+  .image-safe::after {
+    content: "";
+    @apply bg-transparent absolute top-0 left-0 w-full h-full pointer-events-auto z-30;
+  }
+  .text-safe {
+    @apply relative select-none; /* Отключает выделение текста */
+  }
+
+  .text-safe::after {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-full bg-transparent pointer-events-auto z-30;
   }
 }

@@ -6,7 +6,7 @@ export const getAllCarsModels = async (
   page: Page,
   pageToImages: Page,
 ) => {
-  await page.goto("https://www.gsmarena.com/makers.php3", {
+  await page.goto("https://www.arenaev.com/makers.php3", {
     timeout: 60000,
     waitUntil: "domcontentloaded",
   });
