@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { getModelDeclension } from "../_fn/get_models_declension";
 import { Skeleton } from "@/shared/components/ui/skeleton";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/shared/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/shared/components/ui/card";
 
 export function BrandCard({
   brandSlug,
@@ -23,14 +18,11 @@ export function BrandCard({
     <Link href={`brands/${brandSlug}`} ref={innerRef}>
       <Card className="p-0 h-full gap-0  flex flex-col justify-between shadow-md transition-all  duration-300 hover:scale-95  hover:shadow-lg hover:bg-foreground/10  items-center">
         <CardHeader className="p-1 sm:p-2 flex items-center justify-center text-center">
-          <CardTitle className=" uppercase text-sm sm:text-base ">
-            {brandName}
-          </CardTitle>
+          <CardTitle className=" uppercase text-sm sm:text-base ">{brandName}</CardTitle>
         </CardHeader>
         <CardContent className="p-1 sm:p-2">
           <p className="text-sm text-muted-foreground ">
-            {brandCountCars}{" "}
-            {getModelDeclension(brandCountCars)}
+            {brandCountCars} {getModelDeclension(brandCountCars)}
           </p>
         </CardContent>
       </Card>

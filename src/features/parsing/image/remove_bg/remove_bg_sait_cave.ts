@@ -9,16 +9,10 @@ import os from "os";
  * @param imageBuffer - Изображение в виде Buffer.
  * @returns Buffer с изображением без фона.
  */
-export const removeBackgroundWithCarve = async (
-  imageBuffer: Buffer,
-  page: Page,
-): Promise<Buffer> => {
+export const removeBackgroundWithCarve = async (imageBuffer: Buffer, page: Page): Promise<Buffer> => {
   try {
     // Создаем временный файл из Buffer
-    const tempFilePath = path.join(
-      os.tmpdir(),
-      "input_image.png",
-    );
+    const tempFilePath = path.join(os.tmpdir(), "input_image.png");
     fs.writeFileSync(tempFilePath, imageBuffer);
 
     // Открываем сайт
@@ -32,24 +26,16 @@ export const removeBackgroundWithCarve = async (
 
     // Загружаем изображение на сайт
     const inputFileSelector = 'input[type="file"]';
-    await page.setInputFiles(
-      inputFileSelector,
-      tempFilePath,
-    );
+    await page.setInputFiles(inputFileSelector, tempFilePath);
     // console.log("Изображение загружено");
 
     // Ждем, пока изображение обработается
-    await page.waitForSelector(
-      "img[alt='изображение без фона']",
-      {
-        timeout: 60000,
-      },
-    );
+    await page.waitForSelector("img[alt='изображение без фона']", {
+      timeout: 60000,
+    });
     await page.waitForFunction(
       () => {
-        const imgElement = document.querySelector(
-          "img[alt='изображение без фона']",
-        ) as HTMLImageElement;
+        const imgElement = document.querySelector("img[alt='изображение без фона']") as HTMLImageElement;
         return imgElement?.src.startsWith("blob:");
       },
       { timeout: 60000 },
@@ -57,8 +43,7 @@ export const removeBackgroundWithCarve = async (
     // console.log("Изображение обработано");
 
     // Ждем, пока появится кнопка для скачивания
-    const downloadButtonSelector =
-      "button.download-button.secondary";
+    const downloadButtonSelector = "button.download-button.secondary";
     await page.waitForSelector(downloadButtonSelector, {
       timeout: 60000,
     });
@@ -70,10 +55,7 @@ export const removeBackgroundWithCarve = async (
     ]);
 
     // Определяем временный путь для скачивания
-    const tempDownloadPath = path.join(
-      os.tmpdir(),
-      "processed_image.png",
-    );
+    const tempDownloadPath = path.join(os.tmpdir(), "processed_image.png");
 
     // Сохраняем файл на диск
     await download.saveAs(tempDownloadPath);
@@ -81,9 +63,7 @@ export const removeBackgroundWithCarve = async (
     // console.log("Изображение без фона сохранено");
 
     // Читаем файл как Buffer
-    const processedImageBuffer = fs.readFileSync(
-      tempDownloadPath,
-    );
+    const processedImageBuffer = fs.readFileSync(tempDownloadPath);
 
     // console.log("Изображение без фона получено как Buffer");
     fs.unlinkSync(tempFilePath); // Удаляем временный файл с исходным изображением

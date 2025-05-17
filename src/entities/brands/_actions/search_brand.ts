@@ -3,9 +3,7 @@
 import { dataBase } from "@/shared/lib/db_conect";
 import { BrandWithModelsCount } from "../_domain/types";
 
-export async function searchBrands(
-  query: string,
-): Promise<BrandWithModelsCount[] | []> {
+export async function searchBrands(query: string): Promise<BrandWithModelsCount[] | []> {
   if (!query) return [];
   try {
     return await dataBase.brands.findMany({

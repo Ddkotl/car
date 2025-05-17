@@ -68,10 +68,9 @@ model CarsModels {
   short_name     String          @unique
   full_name      String          @unique
   slug           String          @unique
-  cars_mark_id   String
   specifications Specification[]
   main_image     String
-  Posts          Posts[]
+  posts          Posts[]
   car_brand      CarBrands?      @relation(fields: [car_brand_id], references: [id])
   car_brand_id   String?
 
@@ -83,7 +82,12 @@ model Specification {
 
   images String[]
 
-  description String
+  power            String
+  drivetype        String
+  acceleration     String
+  battery_capacity String
+  range            String
+  description      String
 
   car_model    CarsModels @relation(fields: [car_model_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   car_model_id String

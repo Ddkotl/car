@@ -21,15 +21,12 @@ export const metadata: Metadata = {
     default: `${privateConfig.SAIT_NAME}`,
     template: `%s | ${privateConfig.SAIT_NAME}`,
   },
-  description:
-    "Обзоры, свежие новости и полезные советы для пользователей современных автомобилей.",
-  keywords:
-    "автомобили, электоавтомобили, электрокары, новости, гаджеты, инновации",
+  description: "Обзоры, свежие новости и полезные советы для пользователей современных автомобилей.",
+  keywords: "автомобили, электоавтомобили, электрокары, новости, гаджеты, инновации",
   metadataBase: new URL(`${privateConfig.SAIT_URL}`),
   openGraph: {
     title: `${privateConfig.SAIT_NAME} - Обзоры авто и новости технологий`,
-    description:
-      "Обзоры, свежие новости и полезные советы для пользователей современных автомобилей.",
+    description: "Обзоры, свежие новости и полезные советы для пользователей современных автомобилей.",
     url: `${privateConfig.SAIT_URL}`,
     type: "website",
     locale: "ru_RU",
@@ -50,23 +47,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ru"
-      dir="ltr"
-      suppressHydrationWarning
-      className="h-full"
-    >
+    <html lang="ru" dir="ltr" suppressHydrationWarning className="h-full">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable}  antialiased h-full relative`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable}  antialiased h-full relative`}>
         <AppProvider>{children}</AppProvider>
         <ScrollToTopButton />
-        <GoogleAnalytics
-          gaId={privateConfig.GOOGLE_ANALITICS_4_ID || ""}
-        />
+        <GoogleAnalytics gaId={privateConfig.GOOGLE_ANALITICS_4_ID || ""} />
       </body>
     </html>
   );

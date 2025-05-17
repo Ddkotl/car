@@ -25,8 +25,7 @@ export function MainNav({ items }: { items: NavItems[] }) {
           className={cn(
             "transition-colors hover:bg-accent/60 hover:rounded-lg hover:text-foreground text-foreground/60 p-2 min-w-20 flex items-center justify-center",
             {
-              "bg-accent/60 text-foreground rounded-lg ":
-                pathmane === item.path,
+              "bg-accent/60 text-foreground rounded-lg ": pathmane === item.path,
             },
           )}
         >

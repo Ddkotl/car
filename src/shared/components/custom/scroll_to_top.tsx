@@ -12,11 +12,7 @@ export function ScrollToTopButton() {
     };
 
     window.addEventListener("scroll", toggleVisibility);
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        toggleVisibility,
-      );
+    return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
@@ -30,9 +26,7 @@ export function ScrollToTopButton() {
       name="на верх"
       className={cn(
         "fixed bottom-5 right-5 z-[100]  text-contrast_color transition-all  duration-300  rounded-full shadow-lg  hover:scale-110",
-        isVisible
-          ? "opacity-100"
-          : "opacity-0 pointer-events-none",
+        isVisible ? "opacity-100" : "opacity-0 pointer-events-none",
       )}
     >
       <ArrowUp size={40} />

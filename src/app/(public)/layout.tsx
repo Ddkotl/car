@@ -4,11 +4,7 @@ import { AppHeader } from "@/widgets/app-header/app-header";
 import { Sidebar } from "@/widgets/sidebar/app-sidebar";
 import React from "react";
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen w-full flex-col gap-2 lg:gap-6">
       <AppHeader />

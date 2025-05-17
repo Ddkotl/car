@@ -13,19 +13,9 @@ export function AppHeader() {
     <Container className="sticky  top-0  z-[55]">
       <Layout
         logo={<Logo />}
-        mobileNav={
-          <MobileMenu
-            items={mainNavItems}
-            logo={<Logo />}
-          />
-        }
+        mobileNav={<MobileMenu items={mainNavItems} logo={<Logo />} />}
         nav={<MainNav items={mainNavItems} />}
-        actions={
-          <Actions
-            bookmarks={<BookmarksIcon />}
-            theme={<ToggleTheme />}
-          />
-        }
+        actions={<Actions bookmarks={<BookmarksIcon />} theme={<ToggleTheme />} />}
       />
     </Container>
   );

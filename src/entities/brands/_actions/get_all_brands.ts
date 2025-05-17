@@ -2,9 +2,7 @@
 import { dataBase } from "@/shared/lib/db_conect";
 import { BrandWithModelsCount } from "../_domain/types";
 
-export const getAllBrands = async (): Promise<
-  BrandWithModelsCount[]
-> => {
+export const getAllBrands = async (): Promise<BrandWithModelsCount[]> => {
   try {
     const brands = await dataBase.brands.findMany({
       orderBy: {

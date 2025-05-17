@@ -8,13 +8,7 @@ interface MetadataProps {
   canonical?: string;
 }
 
-export function generateSEOMetadata({
-  title,
-  description,
-  keywords,
-  ogImage,
-  canonical,
-}: MetadataProps): Metadata {
+export function generateSEOMetadata({ title, description, keywords, ogImage, canonical }: MetadataProps): Metadata {
   return {
     title,
     description,

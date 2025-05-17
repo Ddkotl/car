@@ -24,7 +24,7 @@ services:
     image: hlohaus789/g4f:latest-slim
     restart: always
     ports:
-      - "1338:1337" # Пробрасываем порт 1337
+      - ${G4F_PORT}:1337 # Пробрасываем порт 1337
     volumes:
       - ./har_and_cookies:/app/har_and_cookies # Монтируем директорию har_and_cookies
       - ./generated_images:/app/generated_images # Монтируем директорию generated_images
@@ -47,13 +47,7 @@ services:
     volumes:
       - minio_data_car:/data
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "-f",
-          "http://localhost:9000/minio/health/live",
-        ]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3

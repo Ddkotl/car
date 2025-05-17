@@ -7,10 +7,7 @@ import { Container } from "@/shared/components/custom/app-container";
 export function AppFooter() {
   return (
     <Container>
-      <Layout
-        logo={<Logo className="h-6 w-6" />}
-        footerNav={<FooterNav items={FooterNavItems} />}
-      />
+      <Layout logo={<Logo className="h-6 w-6" />} footerNav={<FooterNav items={FooterNavItems} />} />
     </Container>
   );
 }

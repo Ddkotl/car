@@ -8,26 +8,14 @@ import { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   return generateSEOMetadata({
     title: "Брэнды электромобилей",
-    description:
-      "Список всех доступных брэндов современных электромобилей",
-    keywords: [
-      "автомобили",
-      "электоавтомобили",
-      "электрокары",
-      "новости",
-      "гаджеты",
-      "инновации",
-    ],
+    description: "Список всех доступных брэндов современных электромобилей",
+    keywords: ["автомобили", "электоавтомобили", "электрокары", "новости", "гаджеты", "инновации"],
     ogImage: "/logo_opengraf.jpg",
     canonical: `${privateConfig.SAIT_URL}/brands`,
   });
 }
 
-export default async function BrandsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
+export default async function BrandsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const { q } = await searchParams;
   return (
     <main className="flex flex-col flex-1    gap-2 md:gap-4">

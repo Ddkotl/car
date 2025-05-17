@@ -3,15 +3,8 @@
 import { cn } from "@/shared/lib/utils";
 import { useEffect, useState } from "react";
 
-export const TimeAgo = ({
-  date,
-  className,
-}: {
-  date: Date;
-  className?: string;
-}) => {
-  const [currentTime, setCurrentTime] =
-    useState<Date | null>(null);
+export const TimeAgo = ({ date, className }: { date: Date; className?: string }) => {
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
   useEffect(() => {
     setCurrentTime(new Date());
@@ -24,8 +17,7 @@ export const TimeAgo = ({
   if (!currentTime) {
     return <span>Загрузка...</span>; // Показываем текст, пока не загрузилось текущее время
   }
-  const timeDiff =
-    currentTime.getTime() - new Date(date).getTime();
+  const timeDiff = currentTime.getTime() - new Date(date).getTime();
   const seconds = Math.floor(timeDiff / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -37,9 +29,7 @@ export const TimeAgo = ({
     const month = date.getMonth() + 1; // Месяцы начинаются с 0
     const year = date.getFullYear();
     return (
-      <span
-        className={cn(className, "text-sm")}
-      >{`${day < 10 ? `0${day}` : day}/${
+      <span className={cn(className, "text-sm")}>{`${day < 10 ? `0${day}` : day}/${
         month < 10 ? `0${month}` : month
       }/${year}`}</span>
     );
@@ -53,9 +43,7 @@ export const TimeAgo = ({
     if (hours >= 22 && hours <= 24) {
       return <span>{`${hours} часа назад`}</span>;
     }
-    return (
-      <span>{`${hours} час${hours > 1 ? "ов" : ""} назад`}</span>
-    );
+    return <span>{`${hours} час${hours > 1 ? "ов" : ""} назад`}</span>;
   }
 
   if (minutes >= 1) {
@@ -66,12 +54,7 @@ export const TimeAgo = ({
     if (minutes >= 2 && minutes <= 4) {
       return <span>{`${minutes} минуты назад`}</span>;
     }
-    if (
-      minutes === 21 ||
-      minutes === 31 ||
-      minutes === 41 ||
-      minutes === 51
-    ) {
+    if (minutes === 21 || minutes === 31 || minutes === 41 || minutes === 51) {
       return <span>{`${minutes} минуту назад`}</span>;
     }
 
