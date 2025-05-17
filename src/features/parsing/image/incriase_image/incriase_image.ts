@@ -6,7 +6,7 @@ import { resetPageData } from "../../functions/resetPageData";
 export const incriaseImageWithRetry = async (
   imageBuffer: Buffer,
   page: Page,
-  maxRetries: number = 5,
+  maxRetries: number = 10,
 ): Promise<Buffer> => {
   let attempts = 0;
 

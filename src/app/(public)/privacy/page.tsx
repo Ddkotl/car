@@ -1,13 +1,14 @@
 import { generateSEOMetadata } from "@/features/seo/generate_metadata";
+import { privateConfig } from "@/shared/lib/config/private";
 import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Политика конфиденциальности",
   description: "Ознакомьтесь с политикой конфиденциальности перед использованием сайта",
-  keywords: ["технологии", "смартфоны", "обзоры", "новости", "гаджеты", "мобильные телефоны", "инновации"],
+  keywords: ["автомобили", "электоавтомобили", "электрокары", "новости", "гаджеты", "инновации"],
   ogImage: "/logo_opengraf.jpg",
-  canonical: "https://tech24view.ru/privacy",
+  canonical: `${privateConfig.SAIT_URL}/privacy`,
 });
 
 export default async function PrivacyPolicy() {
@@ -19,7 +20,7 @@ export default async function PrivacyPolicy() {
         <h2 className="text-2xl font-semibold mb-4">1. Общие положения</h2>
         <p className="mb-4">
           Настоящая Политика конфиденциальности (далее — «Политика») регулирует порядок сбора, хранения, использования и
-          защиты персональных данных пользователей сайта <strong>tech24view.ru</strong> (далее — «Сайт»).
+          защиты персональных данных пользователей сайта <strong>`${privateConfig.SAIT_URL}`</strong> (далее — «Сайт»).
         </p>
         <p>
           Используя Сайт, Пользователь соглашается с условиями настоящей Политики. Если Пользователь не согласен с

@@ -61,7 +61,13 @@ services:
       minio:
         condition: service_healthy
     entrypoint: >
-      /bin/sh -c " sleep 5; /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD}; /usr/bin/mc mb myminio/${S3_IMAGES_BUCKET}; /usr/bin/mc anonymous set public myminio/${S3_IMAGES_BUCKET}; exit 0; "
+      /bin/sh -c "
+      sleep 5;
+      /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+      /usr/bin/mc mb myminio/${S3_IMAGES_BUCKET};
+      /usr/bin/mc anonymous set public myminio/${S3_IMAGES_BUCKET};
+      exit 0;
+      "
     networks:
       - backend_car
 
@@ -70,7 +76,7 @@ services:
     container_name: tor_proxy
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9050:9050" # SOCKS5 Proxy
+      - 127.0.0.1:${TOR_PROXY_PORT}:9050
     environment:
       - TZ=UTC
     networks:

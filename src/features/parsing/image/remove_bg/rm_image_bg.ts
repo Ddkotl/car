@@ -14,7 +14,7 @@ type BackgroundRemover = {
 export const removeImageBackgroundWithRetry = async (
   imageBuffer: Buffer,
   page: Page,
-  maxRetriesPerService: number = 5,
+  maxRetriesPerService: number = 10,
 ): Promise<Buffer> => {
   // Список обработчиков в порядке приоритета
   const removers: BackgroundRemover[] = [

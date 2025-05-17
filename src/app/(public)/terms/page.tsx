@@ -1,13 +1,14 @@
 import { generateSEOMetadata } from "@/features/seo/generate_metadata";
+import { privateConfig } from "@/shared/lib/config/private";
 import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Пользовательское соглашение",
   description: "Ознакомьтесь с пользовательским соглашением перед использованием сайта",
-  keywords: ["технологии", "смартфоны", "обзоры", "новости", "гаджеты", "мобильные телефоны", "инновации"],
+  keywords: ["автомобили", "электоавтомобили", "электрокары", "новости", "гаджеты", "инновации"],
   ogImage: "/logo_opengraf.jpg",
-  canonical: "https://tech24view.ru/terms",
+  canonical: `${privateConfig.SAIT_URL}/terms`,
 });
 
 export default async function TermsOfService() {
@@ -19,8 +20,8 @@ export default async function TermsOfService() {
         <h2 className="text-2xl font-semibold mb-4">1. Общие положения</h2>
         <p className="mb-4">
           Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует отношения между администрацией сайта
-          <strong>tech24view.ru</strong> (далее — «Администрация») и пользователем (далее — «Пользователь») в связи с
-          использованием сайта и его сервисов.
+          <strong>`${privateConfig.SAIT_URL}`</strong> (далее — «Администрация») и пользователем (далее —
+          «Пользователь») в связи с использованием сайта и его сервисов.
         </p>
         <p>
           Используя сайт, Пользователь соглашается с условиями настоящего Соглашения. Если Пользователь не согласен с

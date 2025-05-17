@@ -32,7 +32,6 @@ export const translateModelDescription = async (text: string): Promise<string> =
       temperature: 0.5,
       model: TEXT_AI_MODEL,
     });
-    console.log(chatCompletion.choices[0].message.content);
     return cleaneText(cleanHiddenCharacters(chatCompletion.choices[0].message.content as string));
   } catch (error) {
     console.error("Ошибка при генерации описания модели:", error);

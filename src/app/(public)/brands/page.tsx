@@ -21,7 +21,7 @@ export default async function BrandsPage({ searchParams }: { searchParams: Promi
     <main className="flex flex-col flex-1    gap-2 md:gap-4">
       <div className="flex gap-2 lg:gap-4 flex-col">
         <div className="flex flex-col md:flex-row justify-between items-center w-full gap-2">
-          <Title text="Брэнды электромобилей" size="xl" />
+          <Title text="Брэнды электромобилей" size="xl" className="md:text-start" />
           <Search placeholder="🔍 Поиск брэнда по названию..." />
         </div>
         <BrandList searchTerm={q} />

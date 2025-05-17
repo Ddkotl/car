@@ -48,26 +48,21 @@ export const getModelsByBrand = async (
     const power = await page.locator('span[data-spec="power-hl"]').innerText();
     const powerunits = await page.locator('span[data-spec="powerunits-hl"]').innerText();
     const powerunits_ru = powerunits === "kW" ? "кВт" : powerunits;
-    console.log(power, powerunits_ru);
     const drivetype = await page.locator('div[data-spec="drivetype-hl"]').innerText();
     const translated_drivetype = await safeTranslate(drivetype, translateText);
-    console.log(cleaneText(cleanHiddenCharacters(translated_drivetype.toLowerCase())));
     const acceleration = await page.locator('span[data-spec="acceleration-hl"]').innerText();
-    console.log(acceleration, "сек", "0-100 км/ч");
     const battery_capacity = await page.locator('span[data-spec="batterycapacity-hl"]').innerText();
     const powerunits_batary = await page.locator("strong.accent-camera").innerText();
     const powerunits_batary_ru =
       powerunits_batary.replace(/\d/gi, "") === "kWh" ? "кВтч" : powerunits_batary.replace(/\d/gi, "");
-    console.log(battery_capacity, powerunits_batary_ru);
     const range = await page.locator('span[data-spec="range-hl"]').innerText();
     const rangeunits = await page.locator('span[data-spec="rangeunits-hl"]').innerText();
     const rangeunits_ru = rangeunits === "km" ? "км" : rangeunits;
-    console.log(range, rangeunits_ru, "Диапазон WLTP");
 
     const description = await page.locator('div[id="specs-list"]').innerHTML();
     const translated_description = await safeTranslate(description, translateModelDescription);
 
-    const preview_img_url = await downloadImageForS3(model.prev_img, slug, "models_all", {
+    const preview_img_url = await downloadImageForS3(model.prev_img, slug, "preview_models", {
       page: pageToImages,
       convert_to_png: true,
       incriase: true,
@@ -123,11 +118,11 @@ export const getModelsByBrand = async (
       slug,
       brandName,
       preview_img_url: preview_img_url ? preview_img_url : "/placeholder.png",
-      power: power,
-      drivetype: drivetype,
+      power: `${power} ${powerunits_ru}`,
+      drivetype: cleaneText(cleanHiddenCharacters(translated_drivetype.toLowerCase())),
       acceleration: acceleration,
-      battery_capacity: battery_capacity,
-      range: range,
+      battery_capacity: `${battery_capacity} ${powerunits_batary_ru}`,
+      range: `${range} ${rangeunits_ru}`,
       description: translated_description,
       contentImagesPaths: contentImagesPaths,
     });
