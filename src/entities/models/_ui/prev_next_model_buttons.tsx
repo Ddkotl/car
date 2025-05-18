@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export function NextAndPrevModelButtons({ currentModelSlug, brandId }: { currentModelSlug: string; brandId: string }) {
   const { data, error, isError, isLoading } = useQuery({
-    queryKey: ["phone_model_prev_next", currentModelSlug, brandId],
+    queryKey: ["model_prev_next", currentModelSlug, brandId],
     queryFn: () => getNextAndPrevModelsInfo(currentModelSlug, brandId),
   });
 

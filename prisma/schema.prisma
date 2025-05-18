@@ -71,8 +71,8 @@ model CarsModels {
   specifications Specification[]
   main_image     String
   posts          Posts[]
-  car_brand      CarBrands?      @relation(fields: [car_brand_id], references: [id])
-  car_brand_id   String?
+  car_brand      CarBrands       @relation(fields: [car_brand_id], references: [id])
+  car_brand_id   String
 
   @@map("cars_models")
 }

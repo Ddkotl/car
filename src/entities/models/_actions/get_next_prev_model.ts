@@ -1,6 +1,6 @@
 "use server";
 
-import { dataBase } from "@/shared/lib/db_conect";
+import { dataBase } from "@/shared/lib/db_connect";
 
 type NextAndPrevModelsResult = {
   prev_slug: string | null;
@@ -22,10 +22,10 @@ export const getNextAndPrevModelsInfo = async (
           slug,
           full_name,
           main_image,
-          brand_id,
-          ROW_NUMBER() OVER (PARTITION BY "brand_id" ORDER BY "createdAt") AS row_num
-        FROM "phone_models"
-        WHERE brand_id = ${brandId}
+          car_brand_id,
+          ROW_NUMBER() OVER (PARTITION BY "car_brand_id" ORDER BY "createdAt") AS row_num
+        FROM "cars_models"
+        WHERE car_brand_id = ${brandId}
       )
       SELECT
         prev.slug AS prev_slug,

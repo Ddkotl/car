@@ -1,25 +1,19 @@
 "use server";
 
-import { dataBase } from "@/shared/lib/db_conect";
-import { PhoneModeLFullInfo } from "../_domain/types";
-
-export async function getPhoneModelInfo(slug: string): Promise<PhoneModeLFullInfo | null> {
+import { dataBase } from "@/shared/lib/db_connect";
+export async function getModelFullInfoBySlug(slug: string) {
   try {
-    return await dataBase.phoneModels.findUnique({
+    return await dataBase.carsModels.findUnique({
       where: { slug },
-      include: {
+      select: {
+        id: true,
+        createdAt: true,
+        slug: true,
+        short_name: true,
+        full_name: true,
+        main_image: true,
+        car_brand_id: true,
         specifications: true,
-        Reviews: {
-          select: {
-            id: true,
-            createdAt: true,
-            previewImage: true,
-            slug: true,
-            views: true,
-            title: true,
-            meta_description: true,
-          },
-        },
       },
     });
   } catch (error) {
@@ -27,3 +21,4 @@ export async function getPhoneModelInfo(slug: string): Promise<PhoneModeLFullInf
     return null;
   }
 }
+export type ModelFullInfoType = Awaited<ReturnType<typeof getModelFullInfoBySlug>>;

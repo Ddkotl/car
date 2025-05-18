@@ -1,20 +1,11 @@
 "use server";
 
-import { dataBase } from "@/shared/lib/db_conect";
-import { PartialPhoneModel } from "../_domain/types";
+import { dataBase } from "@/shared/lib/db_connect";
 
-export async function getPhoneModeBySlug(slug: string): Promise<PartialPhoneModel | null> {
+export async function getModeBySlug(slug: string) {
   try {
-    return await dataBase.phoneModels.findUnique({
+    return await dataBase.carsModels.findUnique({
       where: { slug },
-      select: {
-        short_name: true,
-        full_name: true,
-
-        id: true,
-        slug: true,
-        main_image: true,
-      },
     });
   } catch (error) {
     console.error("Не удалось получить информацию о модели", error);
