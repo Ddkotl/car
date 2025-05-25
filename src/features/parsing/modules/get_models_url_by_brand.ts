@@ -23,7 +23,7 @@ export const getModelsUrlByBrand = async (brandUrl: string, page: Page) => {
     // Локатор для всех моделей на странице
     const allModelsSinglePage = await page.locator(".makers > ul > li > a").evaluateAll((elements) =>
       elements.map((e) => ({
-        model: e.querySelector("strong")?.textContent as string,
+        model: e.querySelector("strong > span:nth-child(1)")?.textContent as string,
         url: e.getAttribute("href") as string,
         prev_img: e.querySelector("img")?.getAttribute("src") as string,
       })),
