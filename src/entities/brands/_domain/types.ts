@@ -5,7 +5,4 @@ export type BrandWithModelsCount = CarBrands & {
     car_models: number;
   };
 };
-export type PartialBrandsBySitemap = Pick<
-  CarBrands,
-  "createdAt" | "slug"
->;
+export type PartialBrandsBySitemap = Pick<CarBrands, "createdAt" | "slug">;

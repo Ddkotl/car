@@ -1,18 +1,10 @@
 "use client";
 
-import {
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "../ui/input";
 
-export function Search({
-  placeholder,
-}: {
-  placeholder: string;
-}) {
+export function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();

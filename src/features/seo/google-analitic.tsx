@@ -4,18 +4,13 @@ interface GoogleAnalyticsProps {
   gaId: string;
 }
 
-export const GoogleAnalytics = ({
-  gaId,
-}: GoogleAnalyticsProps) => {
+export const GoogleAnalytics = ({ gaId }: GoogleAnalyticsProps) => {
   if (!gaId) return null;
 
   return (
     <>
       {/* Подключаем Google Tag Manager */}
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-        strategy="afterInteractive"
-      />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
       <Script
         id="google-analytics"
         strategy="afterInteractive"

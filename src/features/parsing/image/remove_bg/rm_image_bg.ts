@@ -8,16 +8,13 @@ import { resetPageData } from "../../functions/resetPageData";
 // Тип для функций удаления фона
 type BackgroundRemover = {
   name: string;
-  func: (
-    imageBuffer: Buffer,
-    page: Page,
-  ) => Promise<Buffer>;
+  func: (imageBuffer: Buffer, page: Page) => Promise<Buffer>;
 };
 
 export const removeImageBackgroundWithRetry = async (
   imageBuffer: Buffer,
   page: Page,
-  maxRetriesPerService: number = 5,
+  maxRetriesPerService: number = 10,
 ): Promise<Buffer> => {
   // Список обработчиков в порядке приоритета
   const removers: BackgroundRemover[] = [
@@ -31,22 +28,14 @@ export const removeImageBackgroundWithRetry = async (
 
     while (attempts < maxRetriesPerService) {
       try {
-        const result = await remover.func(
-          imageBuffer,
-          page,
-        );
+        const result = await remover.func(imageBuffer, page);
         return result;
       } catch (error) {
         attempts++;
-        console.log(
-          `[${remover.name}] Попытка ${attempts}/${maxRetriesPerService} неудачна:`,
-          error,
-        );
+        console.log(`[${remover.name}] Попытка ${attempts}/${maxRetriesPerService} неудачна:`, error);
 
         if (attempts < maxRetriesPerService) {
-          console.log(
-            "Перезапуск Tor и повторная попытка...",
-          );
+          console.log("Перезапуск Tor и повторная попытка...");
           await restartTor();
           await resetPageData(page);
         }
@@ -56,8 +45,6 @@ export const removeImageBackgroundWithRetry = async (
     console.log(`[${remover.name}] Все попытки исчерпаны`);
   }
 
-  console.log(
-    "Все сервисы не смогли обработать изображение",
-  );
+  console.log("Все сервисы не смогли обработать изображение");
   return imageBuffer;
 };

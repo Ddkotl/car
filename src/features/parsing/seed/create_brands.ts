@@ -13,9 +13,6 @@ export const createBrands = async (brandName: string) => {
       },
     });
   } catch (error) {
-    console.error(
-      `Error processing brand "${brandName}":`,
-      error,
-    );
+    console.error(`Error processing brand "${brandName}":`, error);
   }
 };

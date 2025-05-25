@@ -1,12 +1,6 @@
 import { CurrentYear } from "./current_year";
 
-export function Layout({
-  logo,
-  footerNav,
-}: {
-  logo?: React.ReactNode;
-  footerNav?: React.ReactNode;
-}) {
+export function Layout({ logo, footerNav }: { logo?: React.ReactNode; footerNav?: React.ReactNode }) {
   return (
     <footer className="flex justify-center items-center bg-background/95  shadow border-t ">
       <div className=" xl:container w-full mx-auto max-w-screen-xl   py-2 md:flex md:items-center md:justify-between">

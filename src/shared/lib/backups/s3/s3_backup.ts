@@ -5,21 +5,9 @@ import path from "path";
 
 config();
 
-const {
-  MINIO_CONTAINER,
-  S3_IMAGES_BUCKET,
-  BACKUP_DIR,
-  MINIO_ROOT_USER,
-  MINIO_ROOT_PASSWORD,
-} = process.env;
+const { MINIO_CONTAINER, S3_IMAGES_BUCKET, BACKUP_DIR, MINIO_ROOT_USER, MINIO_ROOT_PASSWORD } = process.env;
 
-if (
-  !MINIO_CONTAINER ||
-  !S3_IMAGES_BUCKET ||
-  !BACKUP_DIR ||
-  !MINIO_ROOT_USER ||
-  !MINIO_ROOT_PASSWORD
-) {
+if (!MINIO_CONTAINER || !S3_IMAGES_BUCKET || !BACKUP_DIR || !MINIO_ROOT_USER || !MINIO_ROOT_PASSWORD) {
   console.error("❌ Не заданы переменные окружения!");
   process.exit(1);
 }
@@ -33,18 +21,11 @@ export const createMinioBackup = async () => {
     recursive: true,
   });
 
-  const date = new Date()
-    .toISOString()
-    .replace(/[:.]/g, "-");
-  const backupFolder = path.join(
-    BACKUP_DIR,
-    `minio_backup_tech_${date}`,
-  );
+  const date = new Date().toISOString().replace(/[:.]/g, "-");
+  const backupFolder = path.join(BACKUP_DIR, `minio_backup_tech_${date}`);
 
   try {
-    console.log(
-      `📀 Копирование данных MinIO в ${backupFolder}...`,
-    );
+    console.log(`📀 Копирование данных MinIO в ${backupFolder}...`);
 
     // Создаём папку для копии
     fs.mkdirSync(backupFolder, { recursive: true });
@@ -58,12 +39,9 @@ export const createMinioBackup = async () => {
     );
 
     // Архивируем на хосте
-    execSync(
-      ` nice -n 19 ionice -c 3 tar -cjf ${backupFolder}.tar.bz2 -C ${BACKUP_DIR} minio_backup_tech_${date}`,
-      {
-        stdio: "inherit",
-      },
-    );
+    execSync(` nice -n 19 ionice -c 3 tar -cjf ${backupFolder}.tar.bz2 -C ${BACKUP_DIR} minio_backup_tech_${date}`, {
+      stdio: "inherit",
+    });
 
     // Удаляем временную папку
     fs.rmSync(backupFolder, {
@@ -73,9 +51,6 @@ export const createMinioBackup = async () => {
 
     console.log(`✅ Архив создан: ${backupFolder}.tar.bz2`);
   } catch (error) {
-    console.error(
-      "❌ Ошибка создания бэкапа MinIO:",
-      error,
-    );
+    console.error("❌ Ошибка создания бэкапа MinIO:", error);
   }
 };

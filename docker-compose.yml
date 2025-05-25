@@ -24,7 +24,7 @@ services:
     image: hlohaus789/g4f:latest-slim
     restart: always
     ports:
-      - "1338:1337" # Пробрасываем порт 1337
+      - ${G4F_PORT}:1337 # Пробрасываем порт 1337
     volumes:
       - ./har_and_cookies:/app/har_and_cookies # Монтируем директорию har_and_cookies
       - ./generated_images:/app/generated_images # Монтируем директорию generated_images
@@ -47,13 +47,7 @@ services:
     volumes:
       - minio_data_car:/data
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "-f",
-          "http://localhost:9000/minio/health/live",
-        ]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3
@@ -67,7 +61,13 @@ services:
       minio:
         condition: service_healthy
     entrypoint: >
-      /bin/sh -c " sleep 5; /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD}; /usr/bin/mc mb myminio/${S3_IMAGES_BUCKET}; /usr/bin/mc anonymous set public myminio/${S3_IMAGES_BUCKET}; exit 0; "
+      /bin/sh -c "
+      sleep 5;
+      /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+      /usr/bin/mc mb myminio/${S3_IMAGES_BUCKET};
+      /usr/bin/mc anonymous set public myminio/${S3_IMAGES_BUCKET};
+      exit 0;
+      "
     networks:
       - backend_car
 
@@ -76,7 +76,7 @@ services:
     container_name: tor_proxy
     restart: unless-stopped
     ports:
-      - "127.0.0.1:9050:9050" # SOCKS5 Proxy
+      - 127.0.0.1:${TOR_PROXY_PORT}:9050
     environment:
       - TZ=UTC
     networks:

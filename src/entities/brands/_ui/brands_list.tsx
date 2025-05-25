@@ -7,11 +7,7 @@ import { BrandWithModelsCount } from "../_domain/types";
 import { BrandCard, BrandCardSkeleton } from "./brand_card";
 import { Title } from "@/shared/components/custom/app-title";
 
-export function BrandList({
-  searchTerm,
-}: {
-  searchTerm?: string;
-}) {
+export function BrandList({ searchTerm }: { searchTerm?: string }) {
   const perPage = 36;
   const { ref, inView } = useInView();
   const {
@@ -24,18 +20,10 @@ export function BrandList({
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["brands", searchTerm],
-    queryFn: (pageParam) =>
-      getBrandsListWithModelsCount(
-        pageParam.pageParam,
-        perPage,
-        searchTerm,
-      ),
+    queryFn: (pageParam) => getBrandsListWithModelsCount(pageParam.pageParam, perPage, searchTerm),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPage) => {
-      const nextPage =
-        lastPage.length === perPage
-          ? allPage.length + 1
-          : undefined;
+      const nextPage = lastPage.length === perPage ? allPage.length + 1 : undefined;
       return nextPage;
     },
   });
@@ -58,35 +46,25 @@ export function BrandList({
   }
   return (
     <div className=" grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 lg:gap-4 auto-rows-fr">
-      {brandsP?.pages.length &&
-      brandsP.pages.some((page) => page.length) ? (
-        brandsP?.pages.map(
-          (brands: BrandWithModelsCount[]) => {
-            return brands.map((brand, index) => {
-              return (
-                <div key={brand.id}>
-                  <BrandCard
-                    brandSlug={brand.slug}
-                    brandName={brand.name}
-                    brandCountCars={brand._count.car_models}
-                    innerRef={
-                      brands.length === index + 1
-                        ? ref
-                        : undefined
-                    }
-                  />
-                </div>
-              );
-            });
-          },
-        )
+      {brandsP?.pages.length && brandsP.pages.some((page) => page.length) ? (
+        brandsP?.pages.map((brands: BrandWithModelsCount[]) => {
+          return brands.map((brand, index) => {
+            return (
+              <div key={brand.id}>
+                <BrandCard
+                  brandSlug={brand.slug}
+                  brandName={brand.name}
+                  brandCountCars={brand._count.car_models}
+                  innerRef={brands.length === index + 1 ? ref : undefined}
+                />
+              </div>
+            );
+          });
+        })
       ) : (
         <Title size="md" text="Ничего не найдено" />
       )}
-      {isFetchingNextPage &&
-        Array.from({ length: perPage }).map((_, i) => (
-          <BrandCardSkeleton key={i} />
-        ))}
+      {isFetchingNextPage && Array.from({ length: perPage }).map((_, i) => <BrandCardSkeleton key={i} />)}
     </div>
   );
 }

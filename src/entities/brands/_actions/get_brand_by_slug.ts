@@ -1,14 +1,11 @@
-import { dataBase } from "@/shared/lib/db_conect";
-import { BrandWithModelsCount } from "../_domain/types";
+import { dataBase } from "@/shared/lib/db_connect";
 
-export const getBrandBySlug = async (
-  slug: string,
-): Promise<BrandWithModelsCount | null> => {
+export const getBrandBySlug = async (slug: string) => {
   try {
-    return await dataBase.brands.findUnique({
+    return await dataBase.carBrands.findUnique({
       where: { slug },
       include: {
-        _count: { select: { phones: true } },
+        _count: { select: { car_models: true } },
       },
     });
   } catch (error) {

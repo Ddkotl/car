@@ -6,11 +6,7 @@ interface Props {
   className?: string;
   text: string;
 }
-export const Title: React.FC<Props> = ({
-  text,
-  size = "lg",
-  className,
-}) => {
+export const Title: React.FC<Props> = ({ text, size = "lg", className }) => {
   const mapTagBySize = {
     md: "h3",
     lg: "h2",
@@ -21,9 +17,5 @@ export const Title: React.FC<Props> = ({
     lg: "text-base font-bold lg:text-xl w-full gap-4 text-center xs1:text-start",
     xl: "text-base font-bold lg:text-xl w-full gap-4 text-center xs1:text-start",
   } as const;
-  return React.createElement(
-    mapTagBySize[size],
-    { className: cn(mapClassNameBySize[size], className) },
-    text,
-  );
+  return React.createElement(mapTagBySize[size], { className: cn(mapClassNameBySize[size], className) }, text);
 };

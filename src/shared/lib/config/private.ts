@@ -26,8 +26,8 @@ const privateConfigSchema = z.object({
   SAIT_URL: z.string().optional(),
   SAIT_NAME: z.string().optional(),
   BACKUP_DIR: z.string().optional(),
+  G4F_PORT: z.string().optional(),
+  TOR_PROXY_PORT: z.string().optional(),
 });
 
-export const privateConfig = privateConfigSchema.parse(
-  process.env,
-);
+export const privateConfig = privateConfigSchema.parse(process.env);

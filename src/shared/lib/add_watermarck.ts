@@ -1,17 +1,11 @@
 import sharp from "sharp";
-export const replaceWatermarkWithSharp = async (
-  imageBuffer: Buffer,
-  replacementText: string,
-) => {
+export const replaceWatermarkWithSharp = async (imageBuffer: Buffer, replacementText: string) => {
   try {
     // Передаем Buffer в sharp
-    const { width, height } =
-      await sharp(imageBuffer).metadata();
+    const { width, height } = await sharp(imageBuffer).metadata();
 
     if (!width || !height) {
-      throw new Error(
-        "Не удалось получить размеры изображения.",
-      );
+      throw new Error("Не удалось получить размеры изображения.");
     }
 
     // Задаем относительные пропорции для области водяного знака
@@ -35,9 +29,7 @@ export const replaceWatermarkWithSharp = async (
     const y = Math.round(height * yRatio);
     const regionWidth = Math.round(width * widthRatio);
     const regionHeight = Math.round(height * heightRatio);
-    const fontSize = Math.round(
-      (regionWidth + regionHeight) * fontSizeKoef,
-    );
+    const fontSize = Math.round((regionWidth + regionHeight) * fontSizeKoef);
 
     // Извлекаем, размываем и вставляем область обратно
     const blurredRegion = await sharp(imageBuffer)
@@ -68,18 +60,18 @@ export const replaceWatermarkWithSharp = async (
             <svg width="${regionWidth}" height="${regionHeight}" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <filter id="textShadow" x="0" y="0" width="200%" height="200%">
-                  <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="rgba(41, 2, 31, 0.7)" />
+                  <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="oklch(0.2 0.2664 266.29)" />
                 </filter>
                 <radialGradient id="grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                  <stop offset="40%" style="stop-color:rgb(160, 22, 137);stop-opacity:0.65" />
-                  <stop offset="80%" style="stop-color:rgb(160, 22, 137);stop-opacity:0.3" />
-                  <stop offset="100%" style="stop-color:rgb(160, 22, 137);stop-opacity:0" />
+                  <stop offset="40%" style="stop-color:oklch(0.4 0.2664 266.29);stop-opacity:0.65" />
+                  <stop offset="80%" style="stop-color:oklch(0.4 0.2664 266.29);stop-opacity:0.3" />
+                  <stop offset="100%" style="stop-color:oklch(0.4 0.2664 266.29);stop-opacity:0" />
                 </radialGradient>
               </defs>
               <rect x="0" y="0" width="${regionWidth}" height="${regionHeight}" fill="url(#grad)" />
               <text 
                 x="${regionWidth / 2}" 
-                y="${regionHeight / 1.6}" 
+                y="${regionHeight / 1.8}" 
                 font-size="${fontSize}" 
                 fill="rgba(255, 255, 255, 0.9)" 
                 font-weight="700" 

@@ -1,8 +1,9 @@
 import OpenAI from "openai";
+import { privateConfig } from "../config/private";
 
 export const client = new OpenAI({
   apiKey: "",
-  baseURL: "http://localhost:1337/v1",
+  baseURL: `http://localhost:${privateConfig.G4F_PORT}/v1`,
 });
 // export const client = new OpenAI({
 //   baseURL: "https://openrouter.ai/api/v1/",
