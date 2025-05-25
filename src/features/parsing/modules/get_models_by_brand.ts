@@ -49,7 +49,12 @@ export const getModelsByBrand = async (
     const powerunits = await page.locator('span[data-spec="powerunits-hl"]').innerText();
     const powerunits_ru = powerunits === "kW" ? "кВт" : powerunits;
     const drivetype = await page.locator('div[data-spec="drivetype-hl"]').innerText();
-    const translated_drivetype = await safeTranslate(drivetype, translateText);
+    const translated_drivetype = await safeTranslate(
+      drivetype,
+      translateText,
+      "тип привода автомобиля(передний привод, задний приводбполный привод",
+      0.1,
+    );
     const acceleration = await page.locator('span[data-spec="acceleration-hl"]').innerText();
     const battery_capacity = await page.locator('span[data-spec="batterycapacity-hl"]').innerText();
     const powerunits_batary = await page.locator("strong.accent-camera").innerText();

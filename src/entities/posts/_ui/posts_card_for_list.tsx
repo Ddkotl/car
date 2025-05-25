@@ -18,7 +18,7 @@ export function PostsCardForList({
   innerRef?: (node?: Element | null | undefined) => void;
 }) {
   return (
-    <Card className="max-w-[350px]   transition-all hover:bg-background/80" ref={innerRef}>
+    <Card className="p-0 max-w-[350px]   transition-all hover:bg-background/80" ref={innerRef}>
       <div className="flex flex-col  gap-1 sm:gap-2  justify-center items-center">
         {/* Image container with fixed aspect ratio */}
         <div className="relative  aspect-[350/215] overflow-hidden max-w-[350px] h-full flex-grow flex-shrink-0 image-safe ">
@@ -72,10 +72,10 @@ export function PostsCardForList({
 
 export function PostsCardForListSkeleton() {
   return (
-    <Card className="max-w-[350px] w-full transition-all hover:bg-background/80">
+    <Card className="p-0 max-w-[350px] w-full transition-all hover:bg-background/80">
       <div className="flex flex-col gap-1 sm:gap-2 justify-center items-center">
         {/* Image container - same as real card */}
-        <div className="relative aspect-[350/215] overflow-hidden max-w-[350px] h-full flex-grow flex-shrink-0 image-safe w-full">
+        <div className="relative aspect-[350/215] overflow-hidden max-w-[350px]  flex-shrink-0 image-safe w-full">
           <Skeleton className="w-full h-full rounded-md" />
 
           {/* Tags placeholder */}

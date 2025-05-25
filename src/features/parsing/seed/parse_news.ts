@@ -14,7 +14,8 @@ export async function ParseNews(
   images: string[],
   tags: string[],
 ) {
-  await Promise.all(
+  console.log(tags);
+  const news_tags = await Promise.all(
     tags.map((tag) => {
       const slug = transliterateToUrl(tag);
       return dataBase.tag.upsert({
@@ -24,6 +25,7 @@ export async function ParseNews(
       });
     }),
   );
+  console.log(news_tags);
 
   const createdNews = await dataBase.posts.upsert({
     where: { original_title: ingTitle, type: "NEWS" },
@@ -40,7 +42,7 @@ export async function ParseNews(
       preview_image: previewImage,
       images: images,
       tags: {
-        connect: tags.map((tag) => ({ title: tag })), // Соединяем новость с тегами
+        connect: news_tags.map((tag) => ({ id: tag.id })),
       },
     },
   });

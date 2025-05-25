@@ -11,6 +11,7 @@ import { downloadImageForS3 } from "@/shared/lib/download_image_for_S3";
 import { cleaneText } from "@/shared/lib/openai/translate/cleane_text";
 import { cleanHiddenCharacters } from "@/shared/lib/openai/translate/cleane_text_by_hidden_char";
 import { ParseNews } from "../seed/parse_news";
+import { translatePost } from "@/shared/lib/openai/translate/translate_post";
 
 export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: number) => {
   for (let i = 1; i <= n; i++) {
@@ -82,10 +83,15 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
       const imgGalery = await getImagesFromPageGallery(page);
       imagesSrc = imagesSrc.concat(imgGalery);
 
-      const translatedContent = await safeTranslate(contentResponse, translateText, "новость для сайта", 0.5);
+      const translatedContent = await safeTranslate(contentResponse, translatePost);
       const metaTitle = await safeTranslate(translatedTitle, translateText, "тайтл новости для сео", 0.5);
       const metaDescription = await safeTranslate(translatedContent, translateText, "описание новости для сео", 0.5);
-      const translatedTags = await safeTranslate(tags.join(","), translateText, "тэги новости", 0, 1);
+      const translatedTags = await safeTranslate(
+        tags.join(","),
+        translateText,
+        "тэги для новости, не изменяй брэнды и модели",
+        0.1,
+      );
       const parsedTags = (() => {
         try {
           return translatedTags && cleanAndParseTags(translatedTags);

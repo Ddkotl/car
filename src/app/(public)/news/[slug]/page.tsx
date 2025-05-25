@@ -56,7 +56,7 @@ export default async function NewsPage({ params }: { params: Promise<{ slug: str
 
   return (
     <main className="flex flex-col flex-1 gap-2 md:gap-4">
-      <Card className="w-full mx-auto p-2">
+      <Card className="w-full mx-auto p-2 gap-2">
         <CardHeader className="p-2">
           <h1 className="lg:text-xl text-base lg:font-bold font-semibold">{post.title}</h1>
           <div className="md:text-base text-sm flex flex-col  justify-between items-start sm:items-center text-foreground/80">
