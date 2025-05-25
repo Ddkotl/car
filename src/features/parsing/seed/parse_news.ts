@@ -24,7 +24,7 @@ export async function ParseNews(
   });
 
   const createdNews = await dataBase.posts.upsert({
-    where: { original_title: ingTitle },
+    where: { original_title: ingTitle, type: "NEWS" },
     update: {},
     create: {
       createdAt: date,
