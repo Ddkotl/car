@@ -6,6 +6,11 @@ import { transliterateToUrl } from "@/shared/lib/transliterate";
 import { safeTranslate } from "@/shared/lib/openai/translate/safe_translate";
 import { translateText } from "@/shared/lib/openai/translate/translate_text";
 import { generateDataForPost } from "../functions/generate_data_for_post";
+import { cleanAndParseTags } from "../functions/clean_and_parse_tags";
+import { downloadImageForS3 } from "@/shared/lib/download_image_for_S3";
+import { cleaneText } from "@/shared/lib/openai/translate/cleane_text";
+import { cleanHiddenCharacters } from "@/shared/lib/openai/translate/cleane_text_by_hidden_char";
+import { ParseNews } from "../seed/parse_news";
 
 export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: number) => {
   for (let i = 1; i <= n; i++) {
@@ -32,8 +37,8 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
 
     for (const article of articles) {
       const news = await dataBase.posts.findFirst({
-        where:{original_title:article.title}
-      })
+        where: { original_title: article.title },
+      });
       if (!article.link) {
         continue;
       }
@@ -58,10 +63,17 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
         .evaluateAll((tags) =>
           tags.map((tag) => tag.textContent?.trim().toLowerCase()).filter((tag) => tag !== undefined),
         );
-      if (tags.includes("gsmarena") || tags.includes("arenaev") || tags.includes("weekly poll") || tags.includes("deals")) {
+      if (
+        tags.includes("gsmarena") ||
+        tags.includes("arenaev") ||
+        tags.includes("weekly poll") ||
+        tags.includes("deals")
+      ) {
         continue;
       }
-      const translatedTitle = article.title ? await safeTranslate(article.title, translateText, "тайтл новости", 0.2) : "";
+      const translatedTitle = article.title
+        ? await safeTranslate(article.title, translateText, "тайтл новости", 0.2)
+        : "";
       const slug: string = transliterateToUrl(translatedTitle);
       let imagesSrc: string[] = await page
         .locator(".review-body > img")
@@ -70,17 +82,13 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
       const imgGalery = await getImagesFromPageGallery(page);
       imagesSrc = imagesSrc.concat(imgGalery);
 
-      const translatedContent = await safeTranslate(contentResponse, translateText,"новость для сайта",0.5);
-      const metaTitle = await safeTranslate(translatedTitle, translateText,"тайтл новости для сео",0.5);
-      const metaDescription = await safeTranslate(translatedContent, translateText,"описание новости для сео, 140 символов",0.5);
-      const translatedTags = await safeTranslate(tags.join(","), translateTags);
+      const translatedContent = await safeTranslate(contentResponse, translateText, "новость для сайта", 0.5);
+      const metaTitle = await safeTranslate(translatedTitle, translateText, "тайтл новости для сео", 0.5);
+      const metaDescription = await safeTranslate(translatedContent, translateText, "описание новости для сео", 0.5);
+      const translatedTags = await safeTranslate(tags.join(","), translateText, "тэги новости", 0, 1);
       const parsedTags = (() => {
         try {
-          return translatedTags
-            ? cleanAndParseTags(translatedTags)
-            : generatedTags
-              ? cleanAndParseTags(generatedTags)
-              : [];
+          return translatedTags && cleanAndParseTags(translatedTags);
         } catch (e) {
           console.log("Ошибка при парсинге tags", e);
         }
@@ -112,16 +120,16 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
         }
       }
       await ParseNews(
-        cleaneText(metaTitle),
-        cleaneText(metaDescription),
+        cleanHiddenCharacters(cleaneText(metaTitle)),
+        cleanHiddenCharacters(cleaneText(metaDescription)),
         slug,
         generatedDate,
         article.title ? article.title : "",
-        translatedTitle ? cleaneText(translatedTitle) : "",
-        translatedContent ? cleaneText(translatedContent).replace(/html/gi, "") : "",
+        translatedTitle ? cleanHiddenCharacters(cleaneText(translatedTitle)) : "",
+        translatedContent ? cleanHiddenCharacters(cleaneText(translatedContent)).replace(/html/gi, "") : "",
         previewPath ? previewPath : "",
         contentImagesPaths,
-        parsedTags ? parsedTags : [""],
+        parsedTags ? parsedTags : [],
       );
     }
   }
