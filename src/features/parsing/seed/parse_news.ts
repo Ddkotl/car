@@ -14,14 +14,16 @@ export async function ParseNews(
   images: string[],
   tags: string[],
 ) {
-  tags.map(async (tag) => {
-    const slug = transliterateToUrl(tag);
-    return await dataBase.tag.upsert({
-      where: { title: tag },
-      update: {}, // Если тег существует, ничего не изменяем
-      create: { title: tag, slug: slug }, // Если нет, создаем новый
-    });
-  });
+  await Promise.all(
+    tags.map((tag) => {
+      const slug = transliterateToUrl(tag);
+      return dataBase.tag.upsert({
+        where: { slug: slug },
+        update: {},
+        create: { title: tag, slug: slug },
+      });
+    }),
+  );
 
   const createdNews = await dataBase.posts.upsert({
     where: { original_title: ingTitle, type: "NEWS" },
