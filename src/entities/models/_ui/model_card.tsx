@@ -12,7 +12,7 @@ export function ModelCard({
   innerRef?: (node?: Element | null | undefined) => void;
 }) {
   return (
-    <Link href={`/car_model/${model.slug}`} ref={innerRef}>
+    <Link href={`/model/${model.slug}`} ref={innerRef}>
       <Card className=" shadow-md transition-all  duration-300 hover:scale-95  hover:shadow-lg hover:bg-foreground/10  p-0 h-full flex flex-col gap-2 ">
         <CardContent className="p-1 image-safe">
           <Image
