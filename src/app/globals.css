@@ -3,7 +3,32 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer utilities {
+  .image-safe {
+    @apply relative inline-block;
+  }
+
+  .image-safe::after {
+    content: "";
+    @apply bg-transparent absolute top-0 left-0 w-full h-full pointer-events-auto z-30;
+  }
+
+  .text-safe {
+    @apply relative select-none;
+  }
+
+  .text-safe::after {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-full bg-transparent pointer-events-auto z-30;
+  }
+}
+
 @theme inline {
+  --breakpoint-xs: 400px;
+  --breakpoint-xs1: 500px;
+  --breakpoint-md1: 825px;
+  --breakpoint-md2: 900px;
+
   --color-contrast_color: var(--contrast_color);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -123,21 +148,114 @@
   }
 }
 
-@layer components {
-  .image-safe {
-    @apply relative inline-block;
+/* image galery component image-galery-react лучше не трогать */
+.responsive-gallery {
+  .image-gallery {
+    @apply !flex xs:!block;
   }
-
-  .image-safe::after {
+  .image-gallery-slide-wrapper {
+    @apply object-contain rounded-lg;
+  }
+  .image-gallery-content {
+    @apply flex items-center justify-center   relative block;
+  }
+  .image-gallery-content::after {
     content: "";
     @apply bg-transparent absolute top-0 left-0 w-full h-full pointer-events-auto z-30;
   }
-  .text-safe {
-    @apply relative select-none; /* Отключает выделение текста */
+  .image-gallery-thumbnails-wrapper {
+    @apply !w-10;
+  }
+  .image-gallery-thumbnails-container {
+    @apply !w-10;
+  }
+  .image-gallery-thumbnails {
+    @apply !w-10 !relative z-40;
   }
 
-  .text-safe::after {
+  .image-gallery-thumbnail {
+    @apply rounded-lg overflow-hidden  border border-primary/50 !w-10  relative inline-block;
+  }
+  .image-gallery-thumbnail::after {
     content: "";
-    @apply absolute top-0 left-0 w-full h-full bg-transparent pointer-events-auto z-30;
+    @apply bg-transparent absolute top-0 left-0 w-full h-full pointer-events-auto z-30;
+  }
+  .image-gallery-thumbnail.active,
+  .image-gallery-thumbnail:focus,
+  .image-gallery-thumbnail:hover {
+    @apply border-contrast_color border-2 bg-foreground/10;
+  }
+
+  .image-gallery-fullscreen-button,
+  .image-gallery-play-button {
+    @apply bottom-0 top-auto transform-none z-40;
+
+    &::before {
+      @apply drop-shadow-md;
+    }
+  }
+  .image-gallery-icon {
+    @apply text-contrast_color;
+  }
+  .image-gallery-icon:hover {
+    @apply text-contrast_color/50;
+  }
+  .image-gallery-image {
+    @apply h-56 md:h-80  object-contain p-1;
+  }
+
+  .image-gallery-content.fullscreen {
+    .image-gallery-image {
+      @apply h-screen;
+    }
+    .image-gallery-thumbnails-wrapper {
+      @apply !min-w-16;
+    }
+    .image-gallery-thumbnails-container {
+      @apply !w-16;
+    }
+    .image-gallery-thumbnails {
+      @apply !min-w-16 !relative;
+    }
+    .image-gallery-thumbnail {
+      @apply rounded-lg overflow-hidden  border border-primary/50 !w-16;
+    }
+    .image-gallery-thumbnail.active,
+    .image-gallery-thumbnail:focus,
+    .image-gallery-thumbnail:hover {
+      @apply border-contrast_color border-2 bg-foreground/10;
+    }
+    .image-gallery-icon {
+      @apply text-contrast_color;
+    }
+    .image-gallery-icon:hover {
+      @apply text-contrast_color/50;
+    }
+  }
+}
+
+/* стилизация секций с контентом, хранится html в базе */
+
+.prose {
+  @apply max-w-none  leading-relaxed text-foreground;
+
+  h2 {
+    @apply text-base lg:text-lg font-medium mt-2 lg:mt-4 border-b-2 border-foreground/40;
+  }
+
+  p {
+    @apply text-sm lg:text-base text-foreground/80;
+
+    b {
+      @apply text-base lg:text-lg text-foreground;
+    }
+  }
+
+  a {
+    @apply text-foreground/80 no-underline;
+
+    &:hover {
+      @apply underline;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
-const s3Endpoint = process.env.S3_ENDPOINT || "http://localhost:9000";
+const s3Endpoint = process.env.S3_ENDPOINT as string;
 let s3Hostname = "localhost";
 
 try {

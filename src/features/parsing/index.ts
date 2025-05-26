@@ -10,7 +10,7 @@ export async function startParse() {
     browser = await chromium.launch({ headless: true });
     const [page, pageToImages] = await addHTTPheaders(browser, true);
 
-    await parseNewsFromManyPages(page,pageToImages,1)
+    await parseNewsFromManyPages(page, pageToImages, 1);
     await getAllCarsModels(page, pageToImages);
   } catch (error) {
     console.error("Parsing Error", error);

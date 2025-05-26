@@ -12,7 +12,7 @@ export function Search({ placeholder }: { placeholder: string }) {
   const handleSearch = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
 
-    if (e.target.value && e.target.value.length > 2) {
+    if (e.target.value) {
       params.set("q", e.target.value);
     } else {
       params.delete("q");
