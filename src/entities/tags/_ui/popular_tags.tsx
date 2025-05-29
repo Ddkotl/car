@@ -2,10 +2,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { TagBage, TagBageSkeleton } from "./tag_bage";
 import { getPopularTags } from "../_actions/get_popular_tags";
-import { Badge, Title } from "@/shared/components";
 import Link from "next/link";
+import { Title } from "@/shared/components/custom/app-title";
+import { Badge } from "@/shared/components/ui/badge";
 
-export function PopularTags({ count }: { count: number }): JSX.Element {
+export function PopularTags({ count }: { count: number }) {
   const {
     data: tags,
     isLoading,

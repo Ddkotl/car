@@ -1,12 +1,14 @@
 "use client";
 
-import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getAllTagsToInfinitiScroll } from "../_actions/get_all_tags_to_infinity_scroll";
+import { useInView } from "react-intersection-observer";
+import {
+  getAllTagsToInfinitiScroll,
+  getAllTagsToInfinitiScrollType,
+} from "../_actions/get_all_tags_to_infinity_scroll";
 import { useEffect } from "react";
-import { TagsWithCounts } from "../_domain/types";
 import { SkeletonTagCard, TagCard } from "./tag_card";
-import { Title } from "@/shared/components";
+import { Title } from "@/shared/components/custom/app-title";
 
 export function TagsList({ tagSlug, searchTerm }: { tagSlug?: string; searchTerm?: string }) {
   const perPage = 36;
@@ -50,15 +52,14 @@ export function TagsList({ tagSlug, searchTerm }: { tagSlug?: string; searchTerm
   return (
     <div className=" grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-2 lg:gap-4 auto-rows-fr">
       {tagsP?.pages.length && tagsP.pages.some((page) => page.length) ? (
-        tagsP?.pages.flatMap((tags: TagsWithCounts[]) => {
+        tagsP?.pages.flatMap((tags: getAllTagsToInfinitiScrollType) => {
           return tags.map((tag, index) => {
             return (
               <div key={tag.id}>
                 <TagCard
                   tagSlug={tag.slug}
                   tagTitle={tag.title}
-                  newsCount={tag._count.news}
-                  reviewsCount={tag._count.reviews}
+                  count={tag._count.posts}
                   innerRef={tags.length === index + 1 ? ref : undefined}
                 />
               </div>
