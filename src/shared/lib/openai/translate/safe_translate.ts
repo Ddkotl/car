@@ -49,6 +49,7 @@ const ERROR_PATTERNS = [
   "bot limit",
   "limit exceeded",
   "blocked by",
+  "prohibited",
 ];
 
 const containsError = (response: string): boolean => {

@@ -12,6 +12,8 @@ import { cleaneText } from "@/shared/lib/openai/translate/cleane_text";
 import { cleanHiddenCharacters } from "@/shared/lib/openai/translate/cleane_text_by_hidden_char";
 import { ParseNews } from "../seed/parse_news";
 import { translatePost } from "@/shared/lib/openai/translate/translate_post";
+import { generateText } from "@/shared/lib/openai/translate/generate_text";
+import { generateTags } from "@/shared/lib/openai/translate/generate_tags";
 
 export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: number) => {
   for (let i = 1; i <= n; i++) {
@@ -84,21 +86,31 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
       imagesSrc = imagesSrc.concat(imgGalery);
 
       const translatedContent = await safeTranslate(contentResponse, translatePost);
-      const metaTitle = await safeTranslate(translatedTitle, translateText, "тайтл новости для сео", 0.5);
-      const metaDescription = await safeTranslate(translatedContent, translateText, "описание новости для сео", 0.5);
+      const metaTitle = await safeTranslate(translatedTitle, generateText, "тайтл новости для сео", 0.5);
+      const metaDescription = await safeTranslate(translatedContent, generateText, "описание новости для сео", 0.5);
       const translatedTags = await safeTranslate(
         tags.join(","),
         translateText,
         "тэги для новости, не изменяй брэнды и модели",
         0.1,
       );
-      const parsedTags = (() => {
+      let parsedTags = (() => {
         try {
           return translatedTags && cleanAndParseTags(translatedTags);
         } catch (e) {
           console.log("Ошибка при парсинге tags", e);
         }
       })();
+      if (parsedTags === undefined || parsedTags.length == 0) {
+        const generatedTags = await safeTranslate(translatedContent, generateTags);
+        parsedTags = (() => {
+          try {
+            return generatedTags && cleanAndParseTags(generatedTags);
+          } catch (e) {
+            console.log("Ошибка при генерации tags", e);
+          }
+        })();
+      }
       // Сохранение превью и всех картинок
       const previewPath = article.previewImageUrl
         ? await downloadImageForS3(article.previewImageUrl, slug, "news_preview", {
