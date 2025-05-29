@@ -37,7 +37,8 @@ CREATE TABLE "car_brands" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "car_brands_pkey" PRIMARY KEY ("id")
 );
@@ -45,12 +46,13 @@ CREATE TABLE "car_brands" (
 -- CreateTable
 CREATE TABLE "cars_models" (
     "id" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
     "short_name" TEXT NOT NULL,
     "full_name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "main_image" TEXT NOT NULL,
-    "car_brand_id" TEXT,
+    "car_brand_id" TEXT NOT NULL,
 
     CONSTRAINT "cars_models_pkey" PRIMARY KEY ("id")
 );
@@ -85,6 +87,9 @@ CREATE UNIQUE INDEX "tags_slug_key" ON "tags"("slug");
 CREATE UNIQUE INDEX "tags_title_key" ON "tags"("title");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "reviews_original_title_key" ON "reviews"("original_title");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "reviews_slug_key" ON "reviews"("slug");
 
 -- CreateIndex
@@ -112,7 +117,7 @@ CREATE INDEX "_PostsTags_B_index" ON "_PostsTags"("B");
 ALTER TABLE "reviews" ADD CONSTRAINT "reviews_car_model_id_fkey" FOREIGN KEY ("car_model_id") REFERENCES "cars_models"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "cars_models" ADD CONSTRAINT "cars_models_car_brand_id_fkey" FOREIGN KEY ("car_brand_id") REFERENCES "car_brands"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "cars_models" ADD CONSTRAINT "cars_models_car_brand_id_fkey" FOREIGN KEY ("car_brand_id") REFERENCES "car_brands"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "specification" ADD CONSTRAINT "specification_car_model_id_fkey" FOREIGN KEY ("car_model_id") REFERENCES "cars_models"("id") ON DELETE CASCADE ON UPDATE CASCADE;

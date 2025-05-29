@@ -1,15 +1,15 @@
 import { dataBase } from "@/shared/lib/db_connect";
 
-export const getAllModeLsSlugAndDate = async () => {
+export const getAllBrandsSlugAndDate = async () => {
   try {
-    const phoneModels = await dataBase.carsModels.findMany({
+    const brands = await dataBase.carBrands.findMany({
       select: {
         slug: true,
         createdAt: true,
         updatedAt: true,
       },
     });
-    return phoneModels;
+    return brands;
   } catch (error) {
     console.log(error);
     return [];
