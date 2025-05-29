@@ -7,9 +7,9 @@ import React from "react";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen w-full flex-col gap-2 lg:gap-6">
+    <div className="flex min-h-screen w-full flex-col gap-2 lg:gap-6 ">
       <AppHeader />
-      <Container className="h-full flex  flex-1  gap-2 lg:gap-6 ">
+      <Container className="h-full flex  flex-1  gap-2 lg:gap-6  ">
         <div className="flex-1">{children}</div>
 
         <Sidebar children1={<PopularTags count={20} />} />
