@@ -1,5 +1,5 @@
 "use client";
-import { NavigationButton } from "@/shared/components/custom/navigation_button";
+import { NavigationButton } from "@/entities/models/_ui/navigation_button";
 import { getNextAndPrevModelsInfo } from "../_actions/get_next_prev_model";
 import { useQuery } from "@tanstack/react-query";
 

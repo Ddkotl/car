@@ -3,7 +3,7 @@ import { cn } from "@/shared/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../../../shared/components/ui/skeleton";
 
 export function NavigationButton({
   slug,
@@ -40,7 +40,7 @@ export function NavigationButton({
               alt="картинка навигационной кнопки"
               width={96}
               height={56}
-              className="w-14 h-8 object-cover rounded-md "
+              className="w-14 h-8 object-fill rounded-md "
             />
           </div>
         )}

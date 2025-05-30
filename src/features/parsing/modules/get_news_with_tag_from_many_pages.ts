@@ -14,6 +14,7 @@ import { ParseNews } from "../seed/parse_news";
 import { translatePost } from "@/shared/lib/openai/translate/translate_post";
 import { generateText } from "@/shared/lib/openai/translate/generate_text";
 import { generateTags } from "@/shared/lib/openai/translate/generate_tags";
+import { translateTags } from "@/shared/lib/openai/translate/translate_tags";
 
 export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: number) => {
   for (let i = 1; i <= n; i++) {
@@ -88,12 +89,7 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
       const translatedContent = await safeTranslate(contentResponse, translatePost);
       const metaTitle = await safeTranslate(translatedTitle, generateText, "тайтл новости для сео", 0.5);
       const metaDescription = await safeTranslate(translatedContent, generateText, "описание новости для сео", 0.5);
-      const translatedTags = await safeTranslate(
-        tags.join(","),
-        translateText,
-        "тэги для новости, не изменяй брэнды и модели",
-        0.1,
-      );
+      const translatedTags = await safeTranslate(tags.join(","), translateTags);
       let parsedTags = (() => {
         try {
           return translatedTags && cleanAndParseTags(translatedTags);

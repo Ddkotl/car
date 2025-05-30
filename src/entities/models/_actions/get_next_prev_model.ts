@@ -23,7 +23,7 @@ export const getNextAndPrevModelsInfo = async (
           full_name,
           main_image,
           car_brand_id,
-          ROW_NUMBER() OVER (PARTITION BY "car_brand_id" ORDER BY "createdAt") AS row_num
+          ROW_NUMBER() OVER (PARTITION BY "car_brand_id" ORDER BY "created_at") AS row_num
         FROM "cars_models"
         WHERE car_brand_id = ${brandId}
       )
@@ -35,8 +35,8 @@ export const getNextAndPrevModelsInfo = async (
         next.full_name AS next_full_name,
         next.main_image AS next_main_image
       FROM ranked_models current
-      LEFT JOIN ranked_models prev ON current.row_num = prev.row_num + 1 AND current.brand_id = prev.brand_id
-      LEFT JOIN ranked_models next ON current.row_num = next.row_num - 1 AND current.brand_id = next.brand_id
+      LEFT JOIN ranked_models prev ON current.row_num = prev.row_num + 1 AND current.car_brand_id = prev.car_brand_id
+      LEFT JOIN ranked_models next ON current.row_num = next.row_num - 1 AND current.car_brand_id = next.car_brand_id
       WHERE current.slug = ${currentModelSlug};
     `;
 
