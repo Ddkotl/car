@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { PostTypes } from "../../../../generated/prisma";
-import { getLatestPosts } from "../_actons/get_some_posts";
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +11,7 @@ import {
 } from "@/shared/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { MiniPostCard, SceletonMiniPostCard } from "./mini_post_card";
+import { getSomePosts } from "../_actons/get_some_posts";
 
 export function SomePosts({ count, type }: { count: number; type: PostTypes }) {
   const {
@@ -20,7 +20,7 @@ export function SomePosts({ count, type }: { count: number; type: PostTypes }) {
     isError,
   } = useQuery({
     queryKey: ["somePosts", count, type],
-    queryFn: () => getLatestPosts({ count: count, type: type }),
+    queryFn: () => getSomePosts({ count: count, type: type }),
   });
 
   if (isError) return <p>Ошибка загрузки новостей.</p>;

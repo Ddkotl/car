@@ -3,15 +3,7 @@
 import { dataBase } from "@/shared/lib/db_connect";
 import { PostTypes } from "../../../../generated/prisma";
 
-export const getLatestPosts = async ({
-  count,
-  tagSlug,
-  type,
-}: {
-  count: number;
-  tagSlug?: string;
-  type: PostTypes;
-}) => {
+export const getSomePosts = async ({ count, tagSlug, type }: { count: number; tagSlug?: string; type: PostTypes }) => {
   try {
     const news = await dataBase.posts.findMany({
       take: count,

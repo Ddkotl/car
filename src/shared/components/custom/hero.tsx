@@ -6,13 +6,12 @@ export default function Hero() {
   return (
     <section className="w-full rounded-md ">
       <div className="flex  lg:flex-row gap-2">
-        {/* Левая колонка: изображение */}
         <div className="relative aspect-square w-full max-w-[400px] mx-auto overflow-hidden rounded-xl ">
           <Image src="/logo_opengraf.jpg" alt="Последние смартфоны и гаджеты" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-background/0 lg:p-6 p-2">
             <div className="absolute bottom-2 left-2 right-2 lg:bottom-4 lg:left-4 lg:right-4">
               <div>
-                <Title size="xl" text="Новости и обзоры электромобилей" />
+                <Title size="xl" text="Новости и обзоры электромобилей" className="text-start" />
                 <p className="md:text-sm text-xs text-muted-foreground">
                   Актуальная информация о новинках мира технологий, подробные обзоры электроавтомобилей от экспертов.
                 </p>
@@ -21,7 +20,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Правая колонка: карточки */}
         <div className=" grid grid-cols-1 xs1:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-2 w-full xs1:max-w-full  max-w-20 ">
           <Card title="Новости" href="/news" imageSrc="/news.jpg" />
           <Card title="Обзоры" href="/reviews" imageSrc="/reviews.jpg" />
