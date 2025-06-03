@@ -1,3 +1,4 @@
+import { SomePosts } from "@/entities/posts/_ui/some_posts";
 import { generateSEOMetadata } from "@/features/seo/generate_metadata";
 import { Title } from "@/shared/components/custom/app-title";
 import Hero from "@/shared/components/custom/hero";
@@ -16,7 +17,7 @@ export const metadata: Metadata = generateSEOMetadata({
 
 export default async function Home() {
   return (
-    <main className="flex flex-col flex-1   gap-2 md:gap-4">
+    <main className="flex flex-col  gap-2 md:gap-4">
       <Hero />
       <div className="flex flex-row gap-4  justify-between items-center ">
         <Title size="lg" text="Последние новости" />
@@ -24,14 +25,14 @@ export default async function Home() {
           <Button variant="outline">Все новости</Button>
         </Link>
       </div>
-      {/* <LatestNews count={20} /> */}
+      <SomePosts count={20} type="NEWS" />
       <div className="flex flex-row gap-4  justify-between items-center ">
         <Title size="lg" text="Популярные обзоры" />
         <Link href={"/reviews"}>
           <Button variant="outline">Все обзоры</Button>
         </Link>
       </div>
-      {/* <LatestReviews count={20} /> */}
+      <SomePosts count={20} type="REVIEWS" />
     </main>
   );
 }
