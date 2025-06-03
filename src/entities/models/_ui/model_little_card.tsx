@@ -16,23 +16,23 @@ export function ModelLitleCard({
   className?: string;
 }) {
   return (
-    <Link href={`/phone_model/${modelSlug}`}>
+    <Link href={`/model/${modelSlug}`}>
       <Card
         className={cn(
-          " shadow-md transition-all border-none  duration-300 hover:scale-95  hover:shadow-lg hover:bg-foreground/10  p-0 h-full flex flex-row gap-1",
+          " shadow-md transition-all border-none  duration-300 hover:scale-95  hover:shadow-lg hover:bg-foreground/10  p-0 h-full flex flex-row gap-6",
           className,
         )}
       >
-        <CardContent className="p-1 image-safe w-[30px] h-10">
+        <CardContent className=" p-0 image-safe">
           <Image
             src={modelMainImage}
-            alt="картинка карточки"
-            width={100}
-            height={70}
-            className="w-18 h-10 object-fill mx-auto rounded-md "
+            alt="картинка модели"
+            width={96}
+            height={56}
+            className="min-w-24 h-14 rounded-xl object-contain mx-auto"
           />
         </CardContent>
-        <CardFooter className="flex justify-center p-1">
+        <CardFooter className="flex justify-center p-0">
           <CardTitle className="text-xs lg:text-sm font-thin flex text-start items-center justify-center line-clamp-2 ">
             {modelFullName}
           </CardTitle>
@@ -45,12 +45,12 @@ export function ModelLitleCard({
 export function ModelLitleCardSkeleton({ className }: { className?: string }) {
   return (
     <Card className={cn("gap-1 shadow-md border-none p-0 h-full flex flex-row", className)}>
-      <CardContent className="p-1 flex items-center justify-center">
-        <Skeleton className="w-18 h-10 rounded-md " />
+      <CardContent className="p-0 flex items-center justify-center">
+        <Skeleton className="w-24 h-14 rounded-xl " />
       </CardContent>
-      <CardFooter className="flex justify-center p-1">
-        <CardTitle className="text-xs lg:text-sm font-thin flex text-start items-center justify-center">
-          <Skeleton className="w-16 h-4 " />
+      <CardFooter className="flex justify-center p-0">
+        <CardTitle className="  gap-2 text-xs items-center justify-center">
+          <Skeleton className="w-30 h-4 " />
         </CardTitle>
       </CardFooter>
     </Card>

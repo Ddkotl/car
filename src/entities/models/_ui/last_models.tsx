@@ -21,7 +21,7 @@ export function LastModels({ count }: { count: number }) {
   return (
     <section className="space-y-2">
       <Title size="md" text="Последние модели на сайте"></Title>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] gap-1 lg:gap-2">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-1 lg:gap-2">
         {isLoading
           ? Array.from({ length: count }).map((_, index) => <ModelLitleCardSkeleton key={index} />)
           : models?.map((model) => (
