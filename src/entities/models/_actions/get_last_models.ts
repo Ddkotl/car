@@ -1,11 +1,10 @@
 "use server";
 
-import { dataBase } from "@/shared/lib/db_conect";
-import { PartialPhoneModel } from "../_domain/types";
+import { dataBase } from "@/shared/lib/db_connect";
 
-export async function getLastModels(count: number): Promise<PartialPhoneModel[] | []> {
+export async function getLastModels(count: number) {
   try {
-    return await dataBase.phoneModels.findMany({
+    return await dataBase.carsModels.findMany({
       select: {
         short_name: true,
         full_name: true,

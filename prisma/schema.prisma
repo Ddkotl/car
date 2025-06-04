@@ -56,14 +56,16 @@ model CarBrands {
   name       String       @unique
   slug       String       @unique
   car_models CarsModels[]
-  createdAt  DateTime     @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("car_brands")
 }
 
 model CarsModels {
   id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
 
   short_name     String          @unique
   full_name      String          @unique

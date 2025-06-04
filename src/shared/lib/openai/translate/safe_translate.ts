@@ -1,6 +1,7 @@
 const ERROR_PATTERNS = [
   "не могу выполнить",
   "не могу обработать",
+  "не могу предоставить",
   "это нарушает авторское право",
   "не могу перевести",
   "не могу выполнить этот запрос",
@@ -49,6 +50,7 @@ const ERROR_PATTERNS = [
   "bot limit",
   "limit exceeded",
   "blocked by",
+  "prohibited",
 ];
 
 const containsError = (response: string): boolean => {

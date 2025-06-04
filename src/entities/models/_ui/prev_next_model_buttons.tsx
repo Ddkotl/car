@@ -1,16 +1,24 @@
 "use client";
-import { NavigationButton } from "@/shared/components/custom/navigation_button";
+import { NavigationButton, NavigationButtonSkeleton } from "@/entities/models/_ui/navigation_button";
 import { getNextAndPrevModelsInfo } from "../_actions/get_next_prev_model";
 import { useQuery } from "@tanstack/react-query";
 
 export function NextAndPrevModelButtons({ currentModelSlug, brandId }: { currentModelSlug: string; brandId: string }) {
-  const { data, error, isError, isLoading } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: ["model_prev_next", currentModelSlug, brandId],
     queryFn: () => getNextAndPrevModelsInfo(currentModelSlug, brandId),
   });
 
   if (isError) {
-    return <div className="text-foreground">{`Error ${error}`}</div>;
+    return <div className="text-foreground">{``}</div>;
+  }
+  if (isLoading) {
+    return (
+      <div className="flex justify-between gap-2 lg:gap-4">
+        <NavigationButtonSkeleton direction="prev" />
+        <NavigationButtonSkeleton direction="next" />
+      </div>
+    );
   }
 
   return (
@@ -22,7 +30,6 @@ export function NextAndPrevModelButtons({ currentModelSlug, brandId }: { current
           text={data?.next_full_name || ""}
           direction="next"
           className="mr-auto"
-          isLoading={isLoading}
         />
       )}
       {data?.prev_slug && (
@@ -32,7 +39,6 @@ export function NextAndPrevModelButtons({ currentModelSlug, brandId }: { current
           text={data?.prev_full_name || ""}
           direction="prev"
           className="ml-auto"
-          isLoading={isLoading}
         />
       )}
     </div>

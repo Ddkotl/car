@@ -1,13 +1,13 @@
 "use server";
-import { dataBase } from "@/shared/lib/db_conect";
-import { Tag } from "@prisma/client";
 
-export async function getPopularTags(count: number): Promise<Tag[] | null> {
+import { dataBase } from "@/shared/lib/db_connect";
+
+export async function getPopularTags(count: number) {
   try {
     const tag = dataBase.tag.findMany({
       take: count,
       orderBy: {
-        news: {
+        posts: {
           _count: "desc",
         },
       },
@@ -15,6 +15,5 @@ export async function getPopularTags(count: number): Promise<Tag[] | null> {
     return tag;
   } catch (error) {
     console.log("Не удалось получить популярные тэги", error);
-    return null;
   }
 }
