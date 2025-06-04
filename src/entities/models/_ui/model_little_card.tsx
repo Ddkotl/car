@@ -19,7 +19,7 @@ export function ModelLitleCard({
     <Link href={`/model/${modelSlug}`}>
       <Card
         className={cn(
-          " shadow-md transition-all border-none  duration-300 hover:scale-95  hover:shadow-lg hover:bg-foreground/10  p-0 h-full flex flex-row gap-6",
+          " shadow-none transition-all border-none  duration-300 hover:scale-95  hover:shadow-lg hover:bg-foreground/10  p-1 h-full flex flex-row gap-6",
           className,
         )}
       >

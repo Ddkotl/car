@@ -62,7 +62,7 @@ export function BookmarksIcon() {
   }
   return (
     <Link href={`/bookmarks`}>
-      <Button variant="ghost" size="icon" name="закладки" aria-label="закладки" className="relative">
+      <Button variant="ghost" size="icon" name="закладки" aria-label="закладки" className="relative cursor-pointer">
         <IoBookmarks className=" text-contrast_color h-4 w-4" />
         <span className="absolute -top-1 -right-1  bg-contrast_color text-white text-xs font-bold rounded-full h-4 p-1 flex items-center justify-center">
           {newsCount < 100 ? newsCount : "99+"}

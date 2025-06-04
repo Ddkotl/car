@@ -51,6 +51,9 @@ const ERROR_PATTERNS = [
   "limit exceeded",
   "blocked by",
   "prohibited",
+  "rate limit",
+  "rate limit of this model",
+  "limit of this model is reached",
 ];
 
 const containsError = (response: string): boolean => {
