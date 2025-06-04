@@ -6,15 +6,16 @@ import { getPostsToInfinitiScroll, getPostsToInfinitiScrollType } from "../_acto
 import { useEffect } from "react";
 import { PostsCardForList, PostsCardForListSkeleton } from "./posts_card_for_list";
 import { Title } from "@/shared/components/custom/app-title";
+import { PostTypes } from "../../../../generated/prisma";
 
 export function PostsList({
-  variant,
+  type,
   tagSlug,
   searchTerm,
   postsIds,
   isPostsBookmarksStateInit,
 }: {
-  variant: "NEWS" | "REVIEWS";
+  type: PostTypes;
   tagSlug?: string;
   searchTerm?: string;
   postsIds?: string[];
@@ -33,13 +34,12 @@ export function PostsList({
   } = useInfiniteQuery({
     queryKey: [
       "posts",
-      variant,
+      type,
       tagSlug && tagSlug,
       searchTerm && searchTerm,
       isPostsBookmarksStateInit && postsIds && "newsBookmarks",
     ],
-    queryFn: (pageParam) =>
-      getPostsToInfinitiScroll(variant, pageParam.pageParam, perPage, searchTerm, tagSlug, postsIds),
+    queryFn: (pageParam) => getPostsToInfinitiScroll(type, pageParam.pageParam, perPage, searchTerm, tagSlug, postsIds),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPage) => {
       const nextPage = lastPage.length === perPage ? allPage.length + 1 : undefined;

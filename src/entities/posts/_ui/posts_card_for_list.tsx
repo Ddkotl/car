@@ -9,6 +9,7 @@ import { Title } from "@/shared/components/custom/app-title";
 import { TimeAgo } from "@/shared/components/custom/get-time";
 import { Button } from "@/shared/components/ui/button";
 import { Skeleton } from "@/shared/components/ui/skeleton";
+import { BookmarksButton } from "@/features/bookmarks/ui/bookmark_button";
 
 export function PostsCardForList({
   SinglePost,
@@ -48,7 +49,7 @@ export function PostsCardForList({
 
             <CardDescription className="text-xs mt-1.5 flex flex-row items-center justify-between ">
               <TimeAgo date={SinglePost.createdAt} />
-              {/* <BookmarksButton id={SingleNew.id} type="news" /> */}
+              <BookmarksButton id={SinglePost.id} type={SinglePost.type} />
             </CardDescription>
 
             <p className="text-sm line-clamp-3 mt-2 text-muted-foreground">{SinglePost.meta_description}</p>

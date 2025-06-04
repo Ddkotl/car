@@ -1,9 +1,10 @@
 "use server";
 
 import { dataBase } from "@/shared/lib/db_connect";
+import { PostTypes } from "../../../../generated/prisma";
 
 export async function getPostsToInfinitiScroll(
-  variant: "NEWS" | "REVIEWS",
+  type: PostTypes,
   pageParam: number,
   perPage: number,
   searchTerm?: string,
@@ -13,7 +14,7 @@ export async function getPostsToInfinitiScroll(
   try {
     const news = await dataBase.posts.findMany({
       where: {
-        type: variant,
+        type: type,
         id: newsIds ? { in: newsIds } : undefined,
         title: { contains: searchTerm, mode: "insensitive" },
         tags: tagSlug ? { some: { slug: tagSlug } } : undefined,
@@ -24,6 +25,7 @@ export async function getPostsToInfinitiScroll(
       select: {
         id: true,
         createdAt: true,
+        type: true,
         meta_description: true,
         slug: true,
         title: true,
