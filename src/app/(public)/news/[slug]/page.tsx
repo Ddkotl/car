@@ -1,4 +1,5 @@
 import { getSinglePostBySlug } from "@/entities/posts/_actons/get_posts_by_slug";
+import { SomePosts } from "@/entities/posts/_ui/some_posts";
 import { TagBage } from "@/entities/tags/_ui/tag_bage";
 import { Title } from "@/shared/components/custom/app-title";
 import { TimeAgo } from "@/shared/components/custom/get-time";
@@ -81,7 +82,7 @@ export default async function NewsPage({ params }: { params: Promise<{ slug: str
       <div className="flex flex-row gap-4  justify-between items-center ">
         <Title size="lg" text="Похожие новости" />
       </div>
-      {/* <SimilarNews slug={pageParams.slug} /> */}
+      <SomePosts slug={pageParams.slug} count={20} type="NEWS" tags={post.tags} />
     </main>
   );
 }
