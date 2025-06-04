@@ -55,7 +55,7 @@ export function BookmarksIcon() {
         className="relative cursor-auto"
         disabled
       >
-        <IoBookmarks className=" text-fio h-4 w-4" />
+        <IoBookmarks className=" text-contrast_color h-4 w-4" />
         <Skeleton className="h-4 w-4  rounded-full  absolute -top-1 -right-1" />
       </Button>
     );

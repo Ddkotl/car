@@ -52,7 +52,9 @@ export function PostsCardForList({
               <BookmarksButton id={SinglePost.id} type={SinglePost.type} />
             </CardDescription>
 
-            <p className="text-sm line-clamp-3 mt-2 text-muted-foreground">{SinglePost.meta_description}</p>
+            <p className="text-justify indent-3  lg:indent-6 text-sm line-clamp-3 mt-2 text-muted-foreground">
+              {SinglePost.meta_description}
+            </p>
           </div>
 
           <div className=" pt-2">
