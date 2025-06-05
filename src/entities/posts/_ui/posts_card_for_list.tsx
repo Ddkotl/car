@@ -47,12 +47,12 @@ export function PostsCardForList({
               />
             </Link>
 
-            <CardDescription className="text-xs mt-1.5 flex flex-row items-center justify-between ">
+            <CardDescription className="text-xs mt-1.5 flex flex-row items-center justify-between p-0">
               <TimeAgo date={SinglePost.createdAt} />
               <BookmarksButton id={SinglePost.id} type={SinglePost.type} />
             </CardDescription>
 
-            <p className="text-justify indent-3  lg:indent-6 text-sm line-clamp-3 mt-2 text-muted-foreground">
+            <p className="text-justify indent-2  lg:indent-4 text-sm line-clamp-3 mt-2 text-muted-foreground h-14">
               {SinglePost.meta_description}
             </p>
           </div>
