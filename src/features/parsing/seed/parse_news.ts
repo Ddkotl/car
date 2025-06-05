@@ -1,6 +1,8 @@
 import { dataBase } from "@/shared/lib/db_connect";
 import { sleep } from "@/shared/lib/sleep";
 import { transliterateToUrl } from "@/shared/lib/transliterate";
+import { publishToTelegram } from "../publish_content/publish_to_telegram";
+import { privateConfig } from "@/shared/lib/config/private";
 
 export async function ParseNews(
   metaTitle: string,
@@ -14,7 +16,6 @@ export async function ParseNews(
   images: string[],
   tags: string[],
 ) {
-  console.log(tags);
   const news_tags = await Promise.all(
     tags.map((tag) => {
       const slug = transliterateToUrl(tag);
@@ -25,7 +26,6 @@ export async function ParseNews(
       });
     }),
   );
-  console.log(news_tags);
 
   const createdNews = await dataBase.posts.upsert({
     where: { original_title: ingTitle, type: "NEWS" },
@@ -49,24 +49,24 @@ export async function ParseNews(
 
   console.log(`Created news with title: ${createdNews.title}`);
   await sleep(1000);
-  // if (privateConfig.NODE_ENV === "production") {
-  //   console.log("start parse to tg");
-  //   await publishToTelegram({
-  //     type: "news",
-  //     slug: slug,
-  //     meta_description: metaDescription,
-  //     previewImage: previewImage,
-  //     ruTitle: ruTitle,
-  //     tags: tags,
-  //   });
-  //   await delay(1000);
-  //   await publishToInstagram({
-  //     type: "news",
-  //     slug: slug,
-  //     meta_description: metaDescription,
-  //     previewImage: previewImage,
-  //     ruTitle: ruTitle,
-  //     tags: tags,
-  //   });
-  // }
+  if (privateConfig.NODE_ENV === "production") {
+    console.log("start parse to tg");
+    await publishToTelegram({
+      type: "news",
+      slug: slug,
+      meta_description: metaDescription,
+      previewImage: previewImage,
+      ruTitle: ruTitle,
+      tags: tags,
+    });
+    await sleep(1000);
+    //   await publishToInstagram({
+    //     type: "news",
+    //     slug: slug,
+    //     meta_description: metaDescription,
+    //     previewImage: previewImage,
+    //     ruTitle: ruTitle,
+    //     tags: tags,
+    //   });
+  }
 }

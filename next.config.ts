@@ -85,7 +85,7 @@ const nextConfig: NextConfig = {
 if (isDev) {
   nextConfig.experimental = {
     serverActions: {
-      allowedOrigins: ["localhost:3000", "**.app.github.dev"],
+      allowedOrigins: ["localhost:3001", "**.app.github.dev"],
     },
   };
 

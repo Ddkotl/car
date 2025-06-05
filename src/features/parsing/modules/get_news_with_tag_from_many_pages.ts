@@ -87,8 +87,18 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
       imagesSrc = imagesSrc.concat(imgGalery);
 
       const translatedContent = await safeTranslate(contentResponse, translatePost);
-      const metaTitle = await safeTranslate(translatedTitle, generateText, "тайтл новости для сео", 0.5);
-      const metaDescription = await safeTranslate(translatedContent, generateText, "описание новости для сео", 0.5);
+      const metaTitle = await safeTranslate(
+        translatedTitle,
+        generateText,
+        "и оптимизируй тайтл новости для сео(максимум 50 символов)",
+        0.5,
+      );
+      const metaDescription = await safeTranslate(
+        translatedContent,
+        generateText,
+        "и оптимизируй описание новости для сео(максимум 250 символов)",
+        0.5,
+      );
       const translatedTags = await safeTranslate(tags.join(","), translateTags);
       let parsedTags = (() => {
         try {

@@ -30,6 +30,7 @@ export function BookmarksButton({ id, type }: { id: string; type: PostTypes }) {
       variant="ghost"
       size="icon"
       name="закладка"
+      className="cursor-pointer"
     >
       <FaBookmark
         className={`text-contrast_color h-4 w-4 ${isBookmarked ? " text-yellow-500" : "text-contrast_color/80"}`}
