@@ -20,7 +20,7 @@ export default async function TermsOfService() {
         <h2 className="text-2xl font-semibold mb-4">1. Общие положения</h2>
         <p className="mb-4">
           Настоящее Пользовательское соглашение (далее — «Соглашение») регулирует отношения между администрацией сайта
-          <strong>`{privateConfig.SAIT_URL}`</strong> (далее — «Администрация») и пользователем (далее — «Пользователь»)
+          <strong> {privateConfig.SAIT_URL}</strong> (далее — «Администрация») и пользователем (далее — «Пользователь»)
           в связи с использованием сайта и его сервисов.
         </p>
         <p>
