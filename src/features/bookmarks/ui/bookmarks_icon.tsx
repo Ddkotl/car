@@ -12,6 +12,11 @@ import {
 import { RootState } from "@/shared/lib/store";
 import { Button } from "@/shared/components/ui/button";
 import { Skeleton } from "@/shared/components/ui/skeleton";
+import {
+  initReviewsBookmarks,
+  selectIsReviewsBookmarksStateInit,
+  selectReviewsBookmarksCount,
+} from "../slices/reviews_bookmarks_slice";
 export function BookmarksIcon() {
   // const session = useAppSession();
   // const userId = session?.data?.user.id;
@@ -19,8 +24,14 @@ export function BookmarksIcon() {
   const isNewsBookmarksStateInit = useSelector((state: RootState) => {
     return selectIsNewsBookmarksStateInit(state);
   });
+  const isReviewsBookmarksStateInit = useSelector((state: RootState) => {
+    return selectIsReviewsBookmarksStateInit(state);
+  });
   const newsCount = useSelector((state: RootState) => {
     return selectNewsBookmarksCount(state);
+  });
+  const reviewsCount = useSelector((state: RootState) => {
+    return selectReviewsBookmarksCount(state);
   });
   // const newsBookmarksLocal = useSelector((state: RootState) => {
   //   return selectNewsBookmarkIds(state);
@@ -29,7 +40,10 @@ export function BookmarksIcon() {
     if (typeof window !== "undefined" && !isNewsBookmarksStateInit) {
       dispatch(initNewsBookmarks());
     }
-  }, [dispatch, isNewsBookmarksStateInit]);
+    if (typeof window !== "undefined" && !isReviewsBookmarksStateInit) {
+      dispatch(initReviewsBookmarks());
+    }
+  }, [dispatch, isNewsBookmarksStateInit, isReviewsBookmarksStateInit]);
   // const syncBookmarks = useDebouncedCallback(async (bookmarks: string[], userId: string) => {
   //   try {
   //     const updatedNewsBookmarks = await addNewsBookmarks(bookmarks, userId);
@@ -45,7 +59,7 @@ export function BookmarksIcon() {
   //   if (!userId || !isNewsBookmarksStateInit || newsBookmarksLocal.length === 0) return;
   //   syncBookmarks(newsBookmarksLocal, userId);
   // }, [newsBookmarksLocal, userId, isNewsBookmarksStateInit, syncBookmarks]);
-  if (!isNewsBookmarksStateInit) {
+  if (!isNewsBookmarksStateInit || !isReviewsBookmarksStateInit) {
     return (
       <Button
         variant="ghost"
@@ -65,7 +79,7 @@ export function BookmarksIcon() {
       <Button variant="ghost" size="icon" name="закладки" aria-label="закладки" className="relative cursor-pointer">
         <IoBookmarks className=" text-contrast_color h-4 w-4" />
         <span className="absolute -top-1 -right-1  bg-contrast_color text-white text-xs font-bold rounded-full h-4 p-1 flex items-center justify-center">
-          {newsCount < 100 ? newsCount : "99+"}
+          {newsCount + reviewsCount < 100 ? newsCount + reviewsCount : "99+"}
         </span>
       </Button>
     </Link>

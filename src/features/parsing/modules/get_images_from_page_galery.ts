@@ -18,7 +18,7 @@ export const getImagesFromPageGallery = async (page: Page): Promise<string[]> =>
   const nextButtonLocator = "a.go-right";
 
   try {
-    const cookieButtonLocator = "button:has-text('Agree and proceed')";
+    const cookieButtonLocator = "button:has-text('Consent')";
     try {
       await page.waitForSelector(cookieButtonLocator, { state: "visible" });
       const cookieButton = page.locator(cookieButtonLocator);
