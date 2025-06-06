@@ -6,13 +6,14 @@ import { Button } from "@/shared/components/ui/button";
 import { FaBookmark } from "react-icons/fa";
 import { RootState } from "@/shared/lib/store";
 import { PostTypes } from "../../../../generated/prisma";
+import { selectIsReviewsBookmarked, toggleReviewsBookmark } from "../slices/reviews_bookmarks_slice";
 
 export function BookmarksButton({ id, type }: { id: string; type: PostTypes }) {
   // const session = useAppSession();
   // const userId = session.data?.user.id;
   const dispatch = useDispatch();
   const isBookmarked = useSelector((state: RootState) => {
-    return type === "NEWS" ? selectIsNewsBookmarked(state, id) : selectIsNewsBookmarked(state, id);
+    return type === "NEWS" ? selectIsNewsBookmarked(state, id) : selectIsReviewsBookmarked(state, id);
   });
   const handleClick = () => {
     if (type === "NEWS") {
@@ -20,6 +21,9 @@ export function BookmarksButton({ id, type }: { id: string; type: PostTypes }) {
       // if (userId) {
       //   toggleNewsBookmarkAction(userId, id);
       // }
+    }
+    if (type === "REVIEWS") {
+      dispatch(toggleReviewsBookmark(id));
     }
   };
 

@@ -28,7 +28,7 @@ export default async function ReviewsPage({ searchParams }: { searchParams: Prom
           <Title text="Обзоры электромобилей" size="xl" className="md:text-start" />
           <Search placeholder="🔍 Поиск обзора по названию..." />
         </div>
-        <PostsList searchTerm={q} variant="REVIEWS" />
+        <PostsList searchTerm={q} type="REVIEWS" />
       </div>
     </main>
   );
