@@ -32,13 +32,7 @@ export function PostsList({
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: [
-      "posts",
-      type,
-      tagSlug && tagSlug,
-      searchTerm && searchTerm,
-      isPostsBookmarksStateInit && postsIds && "newsBookmarks",
-    ],
+    queryKey: ["posts", type, tagSlug && tagSlug, searchTerm && searchTerm, isPostsBookmarksStateInit, postsIds],
     queryFn: (pageParam) => getPostsToInfinitiScroll(type, pageParam.pageParam, perPage, searchTerm, tagSlug, postsIds),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPage) => {
