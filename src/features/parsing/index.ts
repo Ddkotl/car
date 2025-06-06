@@ -9,7 +9,7 @@ export async function startParse() {
   let browser: Browser | undefined;
   try {
     browser = await chromium.launch({ headless: true });
-    const [page, pageToImages] = await addHTTPheaders(browser, true);
+    const [page, pageToImages] = await addHTTPheaders(browser, false);
 
     await parseReviewsFromManyPages(page, pageToImages, 1);
     await parseNewsFromManyPages(page, pageToImages, 1);
