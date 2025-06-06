@@ -1,5 +1,7 @@
 import { getSinglePostBySlug } from "@/entities/posts/_actons/get_posts_by_slug";
+import { SomePosts } from "@/entities/posts/_ui/some_posts";
 import { TagBage } from "@/entities/tags/_ui/tag_bage";
+import { BookmarksButton } from "@/features/bookmarks/ui/bookmark_button";
 import { Title } from "@/shared/components/custom/app-title";
 import { TimeAgo } from "@/shared/components/custom/get-time";
 import { ImageGalleryComponent } from "@/shared/components/custom/image-galery-react";
@@ -62,7 +64,7 @@ export default async function ReviewsPage({ params }: { params: Promise<{ slug: 
           <div className="md:text-base text-sm flex flex-col  justify-between items-start sm:items-center text-foreground/80">
             <div className="text-xs w-full mt-1.5 flex flex-row items-center justify-between ">
               <TimeAgo date={post.createdAt} />
-              {/* <BookmarksButton id={news.id} type="news" /> */}
+              <BookmarksButton id={post.id} type="REVIEWS" />
             </div>
             <div className="items-start w-full flex flex-wrap gap-2">
               {post?.tags.map((tag) => <TagBage key={tag.slug} slug={tag.slug} title={tag.title} />)}
@@ -81,7 +83,7 @@ export default async function ReviewsPage({ params }: { params: Promise<{ slug: 
       <div className="flex flex-row gap-4  justify-between items-center ">
         <Title size="lg" text="Похожие обзоры" />
       </div>
-      {/* <SimilarNews slug={pageParams.slug} /> */}
+      <SomePosts slug={pageParams.slug} type="REVIEWS" count={20} tags={post.tags} />
     </main>
   );
 }
