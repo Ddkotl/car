@@ -8,7 +8,6 @@ export async function publishToInstagram({
   tags,
 }: {
   type: "news" | "reviews";
-  slug: string;
   ruTitle: string;
   meta_description: string;
   previewImage: string;
@@ -21,7 +20,7 @@ export async function publishToInstagram({
     }
 
     const imageUrl = `${privateConfig.SAIT_URL}${previewImage}`;
-    // const imageUrl = "https://cdn.pixabay.com/photo/2024/05/30/22/14/bird-8799413_1280.jpg";
+    //const imageUrl = "https://cdn.pixabay.com/photo/2024/05/30/22/14/bird-8799413_1280.jpg";
     const icon = type === "news" ? "📰" : "📱";
     const postText = `
 ${icon} ${ruTitle}
@@ -35,7 +34,7 @@ ${meta_description}
 
     // 1. Создаем контейнер для медиа
     const creationResponse = await fetch(
-      `https://graph.facebook.com/v22.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`,
+      `https://graph.facebook.com/v23.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`,
       {
         method: "POST",
         headers: {
@@ -58,7 +57,7 @@ ${meta_description}
 
     // 2. Публикуем контейнер
     const publishResponse = await fetch(
-      `https://graph.facebook.com/v22.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`,
+      `https://graph.facebook.com/v23.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`,
       {
         method: "POST",
         headers: {
@@ -83,13 +82,12 @@ ${meta_description}
   }
 }
 
-// (async () => {
-//   await publishToInstagram({
-//     type: "news",
-//     slug: "slug111",
-//     meta_description: "metaDescription1111",
-//     previewImage: "https://ggscore.com/media/logo/t41813.png?27",
-//     ruTitle: "ruTitle11111",
-//     tags: ["tags"],
-//   });
-// })();
+/*(async () => {
+  await publishToInstagram({
+    type: "news",
+    meta_description: "metaDescription1111",
+   previewImage: "https://ggscore.com/media/logo/t41813.png?27",
+  ruTitle: "ruTitle11111",
+     tags: ["tags"],
+  });
+})();*/
