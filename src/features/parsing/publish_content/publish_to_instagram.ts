@@ -1,8 +1,7 @@
-import { privateConfig } from "../../config/private";
+import { privateConfig } from "@/shared/lib/config/private";
 
 export async function publishToInstagram({
   type,
-  slug,
   meta_description,
   ruTitle,
   previewImage,
@@ -21,7 +20,7 @@ export async function publishToInstagram({
       return;
     }
 
-    const imageUrl = `https://tech24view.ru${previewImage}`;
+    const imageUrl = `${privateConfig.SAIT_URL}${previewImage}`;
     // const imageUrl = "https://cdn.pixabay.com/photo/2024/05/30/22/14/bird-8799413_1280.jpg";
     const icon = type === "news" ? "📰" : "📱";
     const postText = `
@@ -29,7 +28,7 @@ ${icon} ${ruTitle}
 ────────────────
 ${meta_description}
 
-🔗 Читать полностью: https://tech24view.ru/${type}/${slug}
+🔗 Читать полностью ${privateConfig.SAIT_URL}
 ────────────────
 🏷️ Теги: ${type === "news" ? "#Новости #Технологии" : "#Обзоры #Гаджеты"} ${tags.map((tag) => `#${tag}`).join(" ")}
     `.trim();

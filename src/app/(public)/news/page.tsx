@@ -28,7 +28,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
           <Title text="Новости электромобилей" size="xl" className="md:text-start" />
           <Search placeholder="🔍 Поиск новости по названию..." />
         </div>
-        <PostsList searchTerm={q} variant="NEWS" />
+        <PostsList searchTerm={q} type="NEWS" />
       </div>
     </main>
   );

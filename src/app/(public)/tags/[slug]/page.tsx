@@ -30,10 +30,10 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
           <TabsTrigger value="reviews">{`Обзоры`}</TabsTrigger>
         </TabsList>
         <TabsContent value="news">
-          <PostsList variant="NEWS" tagSlug={pageParams.slug} />
+          <PostsList type="NEWS" tagSlug={pageParams.slug} />
         </TabsContent>
         <TabsContent value="reviews">
-          <PostsList variant="REVIEWS" tagSlug={pageParams.slug} />
+          <PostsList type="REVIEWS" tagSlug={pageParams.slug} />
         </TabsContent>
       </Tabs>
     </main>
