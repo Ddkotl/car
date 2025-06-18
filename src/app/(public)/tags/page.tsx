@@ -15,7 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default async function TagsPage() {
+export default async function TagsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q } = await searchParams;
+
   return (
     <main className="flex flex-col flex-1    gap-2 md:gap-4">
       <div className="flex gap-2 lg:gap-4 flex-col">
@@ -23,7 +25,7 @@ export default async function TagsPage() {
           <Title size="xl" text="Тэги новостей и обзоров" />
           <Search placeholder="🔍 Поиск тэга по названию..." />
         </div>
-        <TagsList />
+        <TagsList searchTerm={q} />
       </div>
     </main>
   );

@@ -3,6 +3,7 @@ import { sleep } from "@/shared/lib/sleep";
 import { transliterateToUrl } from "@/shared/lib/transliterate";
 import { publishToTelegram } from "../publish_content/publish_to_telegram";
 import { privateConfig } from "@/shared/lib/config/private";
+import { publishToInstagram } from "../publish_content/publish_to_instagram";
 
 export async function ParseNews(
   metaTitle: string,
@@ -60,13 +61,12 @@ export async function ParseNews(
       tags: tags,
     });
     await sleep(1000);
-    //   await publishToInstagram({
-    //     type: "news",
-    //     slug: slug,
-    //     meta_description: metaDescription,
-    //     previewImage: previewImage,
-    //     ruTitle: ruTitle,
-    //     tags: tags,
-    //   });
+    await publishToInstagram({
+      type: "news",
+      meta_description: metaDescription,
+      previewImage: previewImage,
+      ruTitle: ruTitle,
+      tags: tags,
+    });
   }
 }

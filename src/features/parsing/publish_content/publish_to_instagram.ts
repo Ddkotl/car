@@ -1,15 +1,13 @@
-import { privateConfig } from "../../config/private";
+import { privateConfig } from "@/shared/lib/config/private";
 
 export async function publishToInstagram({
   type,
-  slug,
   meta_description,
   ruTitle,
   previewImage,
   tags,
 }: {
   type: "news" | "reviews";
-  slug: string;
   ruTitle: string;
   meta_description: string;
   previewImage: string;
@@ -21,22 +19,22 @@ export async function publishToInstagram({
       return;
     }
 
-    const imageUrl = `https://tech24view.ru${previewImage}`;
-    // const imageUrl = "https://cdn.pixabay.com/photo/2024/05/30/22/14/bird-8799413_1280.jpg";
+    const imageUrl = `${privateConfig.SAIT_URL}${previewImage}`;
+    //const imageUrl = "https://cdn.pixabay.com/photo/2024/05/30/22/14/bird-8799413_1280.jpg";
     const icon = type === "news" ? "📰" : "📱";
     const postText = `
 ${icon} ${ruTitle}
 ────────────────
 ${meta_description}
 
-🔗 Читать полностью: https://tech24view.ru/${type}/${slug}
+🔗 Читать полностью ${privateConfig.SAIT_URL}
 ────────────────
 🏷️ Теги: ${type === "news" ? "#Новости #Технологии" : "#Обзоры #Гаджеты"} ${tags.map((tag) => `#${tag}`).join(" ")}
     `.trim();
 
     // 1. Создаем контейнер для медиа
     const creationResponse = await fetch(
-      `https://graph.facebook.com/v22.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`,
+      `https://graph.facebook.com/v23.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media`,
       {
         method: "POST",
         headers: {
@@ -59,7 +57,7 @@ ${meta_description}
 
     // 2. Публикуем контейнер
     const publishResponse = await fetch(
-      `https://graph.facebook.com/v22.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`,
+      `https://graph.facebook.com/v23.0/${privateConfig.INSTAGRAM_BUSINESS_ACCOUNT_ID}/media_publish`,
       {
         method: "POST",
         headers: {
@@ -84,13 +82,12 @@ ${meta_description}
   }
 }
 
-// (async () => {
-//   await publishToInstagram({
-//     type: "news",
-//     slug: "slug111",
-//     meta_description: "metaDescription1111",
-//     previewImage: "https://ggscore.com/media/logo/t41813.png?27",
-//     ruTitle: "ruTitle11111",
-//     tags: ["tags"],
-//   });
-// })();
+/*(async () => {
+  await publishToInstagram({
+    type: "news",
+    meta_description: "metaDescription1111",
+   previewImage: "https://ggscore.com/media/logo/t41813.png?27",
+  ruTitle: "ruTitle11111",
+     tags: ["tags"],
+  });
+})();*/
