@@ -85,6 +85,7 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
 
       const imgGalery = await getImagesFromPageGallery(page);
       imagesSrc = imagesSrc.concat(imgGalery);
+      const slicedImgSrc = imagesSrc.slice(0, 4);
 
       const translatedContent = await safeTranslate(contentResponse, translatePost);
       const metaTitle = await safeTranslate(
@@ -130,7 +131,7 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
         : null;
 
       const contentImagesPaths = [];
-      for (const imgSrc of imagesSrc) {
+      for (const imgSrc of slicedImgSrc) {
         if (imgSrc) {
           const savedPath = await downloadImageForS3(imgSrc, slug, "news", {
             page: pageToImages,

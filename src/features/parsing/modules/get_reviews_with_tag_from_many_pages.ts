@@ -125,7 +125,7 @@ export const parseReviewsFromManyPages = async (page: Page, pageToImages: Page, 
 
       // Сохранение всех изображений из обзора
       const contentImagesPaths: string[] = [];
-      for (const imgSrc of imagesSrc.slice(0, 19)) {
+      for (const imgSrc of imagesSrc.slice(0, 4)) {
         if (imgSrc) {
           const savedPath = await downloadImageForS3(imgSrc, slug, "reviews", {
             page: pageToImages,
