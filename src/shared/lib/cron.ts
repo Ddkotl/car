@@ -12,7 +12,7 @@ function setupCron() {
     console.log(1);
   });
 
-  cron.schedule("0 0 29 1 *", async () => {
+  cron.schedule("0 */4 * * *", async () => {
     console.log("🚀 Запуск парсинга...");
     try {
       await startParse();
@@ -22,7 +22,7 @@ function setupCron() {
     }
   });
 
-  cron.schedule("0 0 3 * *", async () => {
+  cron.schedule("0 3 */10 * *", async () => {
     console.log("📀 Запуск создания бэкапа...");
     try {
       await createBackup();
