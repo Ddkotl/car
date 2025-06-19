@@ -8,11 +8,8 @@ import { startParse } from "@/features/parsing";
 function setupCron() {
   console.log("⏳ Cron задачи инициализированы...");
 
-  cron.schedule("*/5 * * * * *", async () => {
-    console.log(1);
-  });
 
-  cron.schedule("0 */4 * * *", async () => {
+  cron.schedule("0 6,11,17 * * *", async () => {
     console.log("🚀 Запуск парсинга...");
     try {
       await startParse();
