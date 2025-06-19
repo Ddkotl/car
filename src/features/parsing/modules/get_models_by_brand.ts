@@ -98,7 +98,9 @@ export const getModelsByBrand = async (
         const imagesSrc = await page
           .locator("#pictures-list > img")
           .evaluateAll((imgs) => imgs.map((img) => img.getAttribute("src")).filter((e) => e !== null));
-        for (const imgSrc of imagesSrc) {
+        const slicedImgSrc = imagesSrc.slice(0, 4);
+
+        for (const imgSrc of slicedImgSrc) {
           if (imgSrc) {
             const savedPath = await downloadImageForS3(imgSrc, slug, "models_all", {
               page: pageToImages,

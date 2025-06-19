@@ -8,11 +8,7 @@ import { startParse } from "@/features/parsing";
 function setupCron() {
   console.log("⏳ Cron задачи инициализированы...");
 
-  cron.schedule("*/5 * * * * *", async () => {
-    console.log(1);
-  });
-
-  cron.schedule("0 0 29 1 *", async () => {
+  cron.schedule("0 6,11,17 * * *", async () => {
     console.log("🚀 Запуск парсинга...");
     try {
       await startParse();
@@ -22,7 +18,7 @@ function setupCron() {
     }
   });
 
-  cron.schedule("0 0 3 * *", async () => {
+  cron.schedule("0 3 */10 * *", async () => {
     console.log("📀 Запуск создания бэкапа...");
     try {
       await createBackup();

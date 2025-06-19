@@ -16,10 +16,10 @@ if (!MINIO_CONTAINER || !S3_IMAGES_BUCKET || !BACKUP_DIR || !MINIO_ROOT_USER || 
 export const createMinioBackup = async () => {
   // Убедимся, что директория бэкапов существует
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
-  fs.mkdirSync(`${BACKUP_DIR}/db_old`, { recursive: true });
-  fs.mkdirSync(`${BACKUP_DIR}/minio_old`, {
-    recursive: true,
-  });
+  //fs.mkdirSync(`${BACKUP_DIR}/db_old`, {    recursive: true });
+  //fs.mkdirSync(`${BACKUP_DIR}/minio_old`, {
+  //  recursive: true,
+  //});
 
   const date = new Date().toISOString().replace(/[:.]/g, "-");
   const backupFolder = path.join(BACKUP_DIR, `minio_backup_tech_${date}`);
