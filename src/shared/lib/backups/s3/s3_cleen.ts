@@ -26,8 +26,8 @@ export const cleanupOldMinioBackups = async () => {
     const fileDate = new Date(file.date);
     const diffDays = (today.getTime() - fileDate.getTime()) / (1000 * 60 * 60 * 24);
     //if (fileDate.getDate() === 15) {
-     // fs.copyFileSync(file.path, path.join(BACKUP_DIR, "minio_old", file.name));
-      //fs.rmSync(file.path);
+    // fs.copyFileSync(file.path, path.join(BACKUP_DIR, "minio_old", file.name));
+    //fs.rmSync(file.path);
     //}
     return diffDays > 30;
   });
