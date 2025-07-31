@@ -4,6 +4,7 @@ import { createBrands } from "../seed/create_brands";
 import { getModelsUrlByBrand } from "./get_models_url_by_brand";
 import { checkModelsExisting } from "../seed/check_models_existing";
 import { getModelsByBrand } from "./get_models_by_brand";
+import { MODELS_LIMIT } from "../limits";
 
 export const getAllCarsModels = async (page: Page, pageToImages: Page) => {
   await page.goto("https://www.arenaev.com/makers.php3", {
@@ -33,10 +34,15 @@ export const getAllCarsModels = async (page: Page, pageToImages: Page) => {
     }
   }
   console.log("brands parsed");
+  let models_limit = 0;
   for (const article of articles) {
+    if (models_limit >= MODELS_LIMIT) {
+      continue;
+    }
     if (article.brand && article.brandListUrl) {
       const modelsUrl = await getModelsUrlByBrand(article.brandListUrl, page);
       const modelNotExist = await checkModelsExisting(modelsUrl);
+      models_limit = models_limit + modelNotExist.length;
       await getModelsByBrand(modelNotExist, article.brand, page, pageToImages);
       await page.waitForTimeout(2000);
     }

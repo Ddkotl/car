@@ -15,6 +15,7 @@ import { translatePost } from "@/shared/lib/openai/translate/translate_post";
 import { generateText } from "@/shared/lib/openai/translate/generate_text";
 import { generateTags } from "@/shared/lib/openai/translate/generate_tags";
 import { translateTags } from "@/shared/lib/openai/translate/translate_tags";
+import { NEWS_LIMIT } from "../limits";
 
 export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: number) => {
   for (let i = 1; i <= n; i++) {
@@ -38,8 +39,11 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
         previewImageUrl: el.querySelector("img")?.getAttribute("src"),
       })),
     );
-
+    let news_limit = 0;
     for (const article of articles) {
+      if (news_limit >= NEWS_LIMIT) {
+        continue;
+      }
       const news = await dataBase.posts.findFirst({
         where: { original_title: article.title },
       });
@@ -156,6 +160,7 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
         contentImagesPaths,
         parsedTags ? parsedTags : [],
       );
+      news_limit++;
     }
   }
 };
