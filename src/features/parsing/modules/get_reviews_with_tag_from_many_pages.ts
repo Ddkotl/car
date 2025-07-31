@@ -14,6 +14,7 @@ import { downloadImageForS3 } from "@/shared/lib/download_image_for_S3";
 import { parseReviews } from "../seed/parse_reviews";
 import { cleanHiddenCharacters } from "@/shared/lib/openai/translate/cleane_text_by_hidden_char";
 import { cleaneText } from "@/shared/lib/openai/translate/cleane_text";
+import { REVIEWS_LIMIT } from "../limits";
 
 export const parseReviewsFromManyPages = async (page: Page, pageToImages: Page, n: number) => {
   for (let i = n; 0 < i; i--) {
@@ -36,8 +37,11 @@ export const parseReviewsFromManyPages = async (page: Page, pageToImages: Page, 
         previewImageUrl: el.querySelector(" a > img")?.getAttribute("src"),
       })),
     );
-
+    let reviews_limit = 0;
     for (const article of articles.reverse()) {
+      if (reviews_limit >= REVIEWS_LIMIT) {
+        continue;
+      }
       const review = await dataBase.posts.findFirst({
         where: { original_title: article.title },
       });
@@ -150,6 +154,7 @@ export const parseReviewsFromManyPages = async (page: Page, pageToImages: Page, 
         contentImagesPaths,
         parsedTags ? parsedTags : [],
       );
+      reviews_limit++;
     }
   }
 };

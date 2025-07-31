@@ -29,7 +29,7 @@ export const cleanupOldMinioBackups = async () => {
     // fs.copyFileSync(file.path, path.join(BACKUP_DIR, "minio_old", file.name));
     //fs.rmSync(file.path);
     //}
-    return diffDays > 30;
+    return diffDays > 70;
   });
   for (const file of oldFiles) {
     console.log(`🗑 Удаляем: ${file.name}`);
