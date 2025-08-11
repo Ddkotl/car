@@ -28,6 +28,7 @@ const privateConfigSchema = z.object({
   BACKUP_DIR: z.string().optional(),
   G4F_PORT: z.string().optional(),
   TOR_PROXY_PORT: z.string().optional(),
+  TOR_CONTAINER_NAME: z.string(),
 });
 
 export const privateConfig = privateConfigSchema.parse(process.env);

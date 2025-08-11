@@ -1,6 +1,5 @@
 import { exec } from "child_process";
-
-const TOR_CONTAINER_NAME = "tor_proxy"; // Замените на имя вашего контейнера
+import { privateConfig } from "./config/private";
 
 const waitForContainerToBeHealthy = (containerName: string, timeout: number = 500000): Promise<void> => {
   return new Promise((resolve, reject) => {
@@ -37,7 +36,7 @@ export const restartTor = async (maxRetries = 2): Promise<void> => {
 
     try {
       await new Promise<void>((resolve, reject) => {
-        exec(`docker restart ${TOR_CONTAINER_NAME}`, (error, stdout, stderr) => {
+        exec(`docker restart ${privateConfig.TOR_CONTAINER_NAME}`, (error, stdout, stderr) => {
           if (error) {
             console.error(`Ошибка при перезапуске Tor: ${stderr}`);
             return reject(error);
@@ -47,7 +46,7 @@ export const restartTor = async (maxRetries = 2): Promise<void> => {
       });
 
       console.log("⏳ Ожидание, пока контейнер станет healthy...");
-      await waitForContainerToBeHealthy(TOR_CONTAINER_NAME);
+      await waitForContainerToBeHealthy(privateConfig.TOR_CONTAINER_NAME);
       console.log("✅ Tor контейнер готов к использованию");
       return; // Успешно, выходим
     } catch (err) {
