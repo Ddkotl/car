@@ -1,5 +1,5 @@
-import { startParse } from ".";
+import { StartParse } from ".";
 
 (async () => {
-  await startParse();
+  await StartParse();
 })();
