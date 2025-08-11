@@ -20,7 +20,7 @@ services:
       # Настройка сетей
       - backend_car # Подключение к сети backend
   g4f:
-    container_name: g4f_service
+    container_name: g4f_service_car
     image: hlohaus789/g4f:latest-slim
     restart: always
     ports:
@@ -55,7 +55,7 @@ services:
       # Настройка сетей
       - backend_car # Подключение к сети backend
   createbuckets:
-    container_name: minio-bucket
+    container_name: minio-bucket_car
     image: minio/mc
     depends_on:
       minio:
