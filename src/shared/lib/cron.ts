@@ -3,7 +3,7 @@ import { createBackup } from "./backups/db/db_backup";
 import { createMinioBackup } from "./backups/s3/s3_backup";
 import { cleanupOldDBBackups } from "./backups/db/db_cleen";
 import { cleanupOldMinioBackups } from "./backups/s3/s3_cleen";
-import { startParse } from "@/features/parsing";
+import { StartParse } from "@/features/parsing";
 
 function setupCron() {
   console.log("⏳ Cron задачи инициализированы...");
@@ -11,7 +11,7 @@ function setupCron() {
   cron.schedule("1 10 * * *", async () => {
     console.log("🚀 Запуск парсинга...");
     try {
-      await startParse();
+      await StartParse();
       console.log("✅ Парсинг успешно завершён.");
     } catch (error) {
       console.error("❌ Ошибка при выполнении парсинга:", error);
