@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "concurrently \"next start -p 3001\" \"bun run cron\"",
+    "start": "concurrently \"next start -p 3002\" \"bun run cron\"",
     "cron": " tsx src/shared/lib/cron.ts",
     "lint": "next lint",
     "lint:types": "tsc --noEmit",
