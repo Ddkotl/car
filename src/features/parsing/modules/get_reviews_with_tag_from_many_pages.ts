@@ -24,7 +24,7 @@ export const parseReviewsFromManyPages = async (page: Page, pageToImages: Page, 
       waitUntil: "domcontentloaded",
     });
     try {
-      await page.waitForSelector(".review-item", { state: "visible", timeout: 60000 });
+      await page.waitForSelector(".news-item", { state: "visible", timeout: 60000 });
     } catch (error) {
       console.log(error);
       await checkRequestLimits(page);

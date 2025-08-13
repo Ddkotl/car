@@ -22,9 +22,9 @@ export async function ExeParse() {
     browser = await chromium.launch({ headless: true });
     const [page, pageToImages] = await addHTTPheaders(browser, false);
 
-    await parseReviewsFromManyPages(page, pageToImages, 1);
     await parseNewsFromManyPages(page, pageToImages, 1);
     await getAllCarsModels(page, pageToImages);
+    await parseReviewsFromManyPages(page, pageToImages, 1);
   } catch (error) {
     console.error("Parsing Error", error);
   } finally {
