@@ -95,13 +95,13 @@ export const parseNewsFromManyPages = async (page: Page, pageToImages: Page, n: 
       const metaTitle = await safeTranslate(
         translatedTitle,
         generateText,
-        "и оптимизируй тайтл новости для сео(максимум 50 символов)",
+        " тайтл новости (максимум 50 символов)",
         0.5,
       );
       const metaDescription = await safeTranslate(
         translatedContent,
         generateText,
-        "и оптимизируй описание новости для сео(максимум 250 символов)",
+        " описание новости (максимум 250 символов)",
         0.5,
       );
       const translatedTags = await safeTranslate(tags.join(","), translateTags);
