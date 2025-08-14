@@ -1,9 +1,9 @@
 import { privateConfig } from "@/shared/lib/config/private";
-import { Browser, Page } from "playwright";
+import { Browser, BrowserContext, Page } from "playwright";
 
-export const addHTTPheaders = async (browser: Browser, isTest: boolean = false): Promise<Page[]> => {
+export const addHTTPheaders = async (browser: Browser, isTest: boolean = false) => {
   try {
-    const contextToImages = await browser.newContext({
+    const contextToImages: BrowserContext = await browser.newContext({
       bypassCSP: true,
       javaScriptEnabled: true,
       viewport: {
@@ -50,7 +50,7 @@ export const addHTTPheaders = async (browser: Browser, isTest: boolean = false):
         get: () => ["en-US", "en"],
       });
     });
-    const context = await browser.newContext({
+    const context: BrowserContext = await browser.newContext({
       ...(isTest
         ? {
             recordVideo: {
@@ -60,8 +60,8 @@ export const addHTTPheaders = async (browser: Browser, isTest: boolean = false):
           }
         : {}),
     });
-    const page = await context.newPage();
-    const pageToImages = await contextToImages.newPage();
+    const page: Page = await context.newPage();
+    const pageToImages: Page = await contextToImages.newPage();
     // Эмулируем человеческий ввод
     // await pageToImages.emulateMedia({ media: "screen" });
     // await pageToImages.setExtraHTTPHeaders({
@@ -82,7 +82,7 @@ export const addHTTPheaders = async (browser: Browser, isTest: boolean = false):
     //     route.continue();
     //   }
     // });
-    return [page, pageToImages];
+    return { page, pageToImages, context, contextToImages };
   } catch (error) {
     console.log("Ошибка при добавлении HTTP-заголовков:", error);
     throw error; // Проброс ошибки для логирования в вызывающем коде

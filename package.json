@@ -18,7 +18,8 @@
     "restore": "bun run restore:minio && bun run restore:db",
     "backup": "tsx src/shared/lib/backups/create_backup.ts",
     "prepare": "git config core.hooksPath .git-hooks && chmod +x .git-hooks/pre-commit || echo 'Not in a git repo'",
-    "inst": "tsx src/features/parsing/publish_content/publish_to_instagram.ts"
+    "inst": "tsx src/features/parsing/publish_content/publish_to_instagram.ts",
+    "testai": "tsx src/shared/lib/openai/test_ai.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.797.0",
