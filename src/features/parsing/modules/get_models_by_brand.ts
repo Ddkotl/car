@@ -98,7 +98,7 @@ export const getModelsByBrand = async (
         const imagesSrc = await page
           .locator("#pictures-list > img")
           .evaluateAll((imgs) => imgs.map((img) => img.getAttribute("src")).filter((e) => e !== null));
-        const slicedImgSrc = imagesSrc.slice(0, 4);
+        const slicedImgSrc = imagesSrc.slice(0, 6);
 
         for (const imgSrc of slicedImgSrc) {
           if (imgSrc) {
