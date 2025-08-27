@@ -32,7 +32,9 @@ export function PostsCardForList({
             priority
           />
           <div className="absolute top-2 left-2 flex flex-wrap gap-1">
-            {SinglePost?.tags.map((tag) => <TagBage key={tag.slug} slug={tag.slug} title={tag.title} />)}
+            {SinglePost?.tags.map((tag) => (
+              <TagBage key={tag.slug} slug={tag.slug} title={tag.title} />
+            ))}
           </div>
         </div>
 

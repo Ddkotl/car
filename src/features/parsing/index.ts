@@ -5,13 +5,16 @@ import { parseNewsFromManyPages } from "./modules/get_news_with_tag_from_many_pa
 import { parseReviewsFromManyPages } from "./modules/get_reviews_with_tag_from_many_pages";
 
 export async function StartParse() {
+  let timer: NodeJS.Timeout | undefined;
   const timeoutPromise = new Promise((_, rej) => {
-    setTimeout(() => rej(new Error("Tech parse time out after 5 hours")), 5 * 60 * 60 * 1000);
+    timer = setTimeout(() => rej(new Error("Tech parse time out after 5 hours")), 5 * 60 * 60 * 1000 - 5 * 60 * 1000);
   });
   try {
     Promise.race([ExeParse(), timeoutPromise]);
   } catch (error) {
     console.error("Error in start parse", error);
+  } finally {
+    clearTimeout(timer);
   }
 }
 
@@ -37,23 +40,23 @@ export async function ExeParse() {
     console.error("Parsing Error", error);
   } finally {
     if (page) {
-      page.close();
+      await page.close();
       console.log("page closed");
     }
     if (pageToImages) {
-      pageToImages.close();
+      await pageToImages.close();
       console.log("pageToImages closed");
     }
     if (context) {
-      context.close();
+      await context.close();
       console.log("context closed");
     }
     if (contextToImages) {
-      contextToImages.close();
+      await contextToImages.close();
       console.log("contextToImages closed");
     }
     if (browser) {
-      browser.close();
+      await browser.close();
       console.log("browser closed");
     }
   }
