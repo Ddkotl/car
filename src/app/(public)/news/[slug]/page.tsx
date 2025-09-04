@@ -67,7 +67,9 @@ export default async function NewsPage({ params }: { params: Promise<{ slug: str
               <BookmarksButton id={post.id} type="NEWS" />
             </div>
             <div className="items-start w-full flex flex-wrap gap-2">
-              {post?.tags.map((tag) => <TagBage key={tag.slug} slug={tag.slug} title={tag.title} />)}
+              {post?.tags.map((tag) => (
+                <TagBage key={tag.slug} slug={tag.slug} title={tag.title} />
+              ))}
             </div>
           </div>
         </CardHeader>

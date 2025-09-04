@@ -33,7 +33,7 @@ export async function parseReviews(
     create: {
       createdAt: date,
       original_title: ingTitle,
-      type: "NEWS",
+      type: "REVIEWS",
       meta_title: metaTitle,
       meta_description: metaDescription,
       slug: slug,
