@@ -41,6 +41,7 @@ export function PostsCardForList({
         {/* Content section */}
         <div className="flex flex-col justify-between p-2 sm:pt-1 sm:p-4 ">
           <div>
+            <div>{SinglePost.type}</div>
             <Link href={`/${SinglePost.type === "NEWS" ? "news" : "reviews"}/${SinglePost.slug}`} className="group">
               <Title
                 size="lg"
