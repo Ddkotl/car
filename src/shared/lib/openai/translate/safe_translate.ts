@@ -74,6 +74,7 @@ export const safeTranslate = async (
     try {
       await sleep(5000);
       const response = await translateFunction(text, context, temperature); // Упрощенный вызов
+      console.log(response);
       if (response && !containsError(response)) {
         return response;
       }
