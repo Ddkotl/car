@@ -61,7 +61,7 @@ export function PostsCardForList({
           </div>
 
           <div className=" pt-2">
-            <Link href={`/news/${SinglePost.slug}`}>
+            <Link href={`/${SinglePost.type.toLowerCase()}/${SinglePost.slug}`}>
               <Button
                 size="sm"
                 className="text-xs bg-foreground text-background hover:bg-foreground/60  transition-colors duration-300 "
