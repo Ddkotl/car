@@ -6,5 +6,5 @@ export const client = new OpenAI({
   baseURL: `http://localhost:${privateConfig.G4F_PORT}/v1`,
 });
 
-export const TEXT_AI_MODEL = "gpt-4o-mini";
+export const TEXT_AI_MODEL = "deepseek-r1";
 export const IMAGE_AI_MODEL = "flux";
