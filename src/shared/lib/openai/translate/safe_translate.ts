@@ -46,8 +46,6 @@ const ERROR_PATTERNS = [
   "request limit",
   "requests limit",
   "error",
-  "data",
-  "content",
   "role",
   "bot limit",
   "limit exceeded",
