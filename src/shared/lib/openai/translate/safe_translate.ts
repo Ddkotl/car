@@ -1,6 +1,8 @@
 import { TEXT_AI_MODELS } from "../ai_client";
 
 const ERROR_PATTERNS = [
+  "произошла ошибка",
+  "ошибка при генерации",
   "не могу выполнить",
   "не могу обработать",
   "не могу предоставить",
@@ -46,8 +48,6 @@ const ERROR_PATTERNS = [
   "request limit",
   "requests limit",
   "error",
-  "data",
-  "content",
   "role",
   "bot limit",
   "limit exceeded",
