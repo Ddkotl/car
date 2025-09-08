@@ -1,3 +1,5 @@
+import { TEXT_AI_MODELS } from "../ai_client";
+
 const ERROR_PATTERNS = [
   "не могу выполнить",
   "не могу обработать",
@@ -65,17 +67,20 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const safeTranslate = async (
   text: string,
-  translateFunction: (text: string, context?: string, temperature?: number) => Promise<string>,
+  translateFunction: (ai_model: string, text: string, context?: string, temperature?: number) => Promise<string>,
   context?: string,
   temperature?: number,
   retries: number = 50,
 ): Promise<string> => {
   for (let i = 0; i < retries; i++) {
+    const model_count = TEXT_AI_MODELS.length;
+    const current_ai_model = TEXT_AI_MODELS[i % model_count];
     try {
+      console.log("use : ", current_ai_model);
       await sleep(5000);
-      const response = await translateFunction(text, context, temperature); // Упрощенный вызов
-      console.log(response);
+      const response = await translateFunction(current_ai_model, text, context, temperature); // Упрощенный вызов
       if (response && !containsError(response)) {
+        console.log("ai ok");
         return response;
       }
       console.log(`Попытка ${i + 1} не удалась, повторяем...`);

@@ -1,6 +1,11 @@
-import { client, TEXT_AI_MODEL } from "../ai_client";
+import { client } from "../ai_client";
 
-export const generateText = async (text: string, context?: string, temperature?: number): Promise<string> => {
+export const generateText = async (
+  ai_model: string,
+  text: string,
+  context?: string,
+  temperature?: number,
+): Promise<string> => {
   try {
     const chatCompletion = await client.chat.completions.create({
       messages: [
@@ -18,7 +23,7 @@ ${text}`,
         },
       ],
       temperature: temperature ? temperature : 0,
-      model: TEXT_AI_MODEL,
+      model: ai_model,
     });
     return chatCompletion.choices[0].message.content as string;
   } catch (e) {

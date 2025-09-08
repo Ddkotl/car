@@ -1,8 +1,8 @@
-import { client, TEXT_AI_MODEL } from "../ai_client";
+import { client } from "../ai_client";
 import { cleaneText } from "./cleane_text";
 import { cleanHiddenCharacters } from "./cleane_text_by_hidden_char";
 
-export const translatePost = async (text: string): Promise<string> => {
+export const translatePost = async (ai_model: string, text: string): Promise<string> => {
   try {
     const chatCompletion = await client.chat.completions.create({
       messages: [
@@ -23,7 +23,7 @@ export const translatePost = async (text: string): Promise<string> => {
         },
       ],
       temperature: 0.7,
-      model: TEXT_AI_MODEL,
+      model: ai_model,
     });
     return cleaneText(cleanHiddenCharacters(chatCompletion.choices[0].message.content as string));
   } catch (error) {

@@ -1,8 +1,8 @@
-import { client, TEXT_AI_MODEL } from "./ai_client";
+import { client, TEXT_AI_MODELS } from "./ai_client";
 
 async function test() {
   const res = await client.chat.completions.create({
-    model: TEXT_AI_MODEL,
+    model: TEXT_AI_MODELS[0],
     messages: [
       {
         role: "system",
