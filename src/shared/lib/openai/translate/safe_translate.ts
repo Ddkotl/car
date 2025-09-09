@@ -60,8 +60,15 @@ const ERROR_PATTERNS = [
   "502",
 ];
 
-const containsError = (response: string): boolean => {
-  return ERROR_PATTERNS.some((pattern) => response.toLowerCase().includes(pattern));
+const containsError = (response: string, must_contain?: string): boolean => {
+  const contain_er = ERROR_PATTERNS.some((pattern) => response.toLowerCase().includes(pattern));
+  if (contain_er) {
+    return contain_er;
+  }
+  if (must_contain && response.search(must_contain) === -1) {
+    return true;
+  }
+  return false;
 };
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -70,16 +77,17 @@ export const safeTranslate = async (
   translateFunction: (ai_model: string, text: string, context?: string, temperature?: number) => Promise<string>,
   context?: string,
   temperature?: number,
-  retries: number = 50,
+  retries: number = 100,
+  must_contain?: string,
 ): Promise<string> => {
   for (let i = 0; i < retries; i++) {
     const model_count = TEXT_AI_MODELS.length;
     const current_ai_model = TEXT_AI_MODELS[i % model_count];
     try {
       console.log("use : ", current_ai_model);
-      await sleep(5000);
+      await sleep(10000);
       const response = await translateFunction(current_ai_model, text, context, temperature); // Упрощенный вызов
-      if (response && !containsError(response)) {
+      if (response && !containsError(response, must_contain)) {
         console.log("ai ok");
         return response;
       }

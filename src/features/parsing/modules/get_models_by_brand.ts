@@ -65,7 +65,7 @@ export const getModelsByBrand = async (
     const rangeunits_ru = rangeunits === "km" ? "км" : rangeunits;
 
     const description = await page.locator('div[id="specs-list"]').innerHTML();
-    const translated_description = await safeTranslate(description, translateModelDescription);
+    const translated_description = await safeTranslate(description, translateModelDescription, "", 0.5, 100, "<h2>");
 
     const preview_img_url = await downloadImageForS3(model.prev_img, slug, "preview_models", {
       page: pageToImages,
