@@ -58,6 +58,9 @@ const ERROR_PATTERNS = [
   "limit of this model is reached",
   "502 Bad Gateway",
   "502",
+  "вот ваш",
+  "here's yours",
+  "here's your",
 ];
 
 const containsError = (response: string, must_contain?: string): boolean => {
